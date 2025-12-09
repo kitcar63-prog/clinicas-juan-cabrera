@@ -1,0 +1,22 @@
+#customerRatingsChart,#emailsClinicasTiempo{
+	padding:0 10px;
+}
+small{
+	font-weight:200;
+}
+.porcentaje-horario li{
+    padding-bottom:0 !important;
+    margin-bottom:0 !important;
+}
+.menu-vertical .app-brand {
+    padding-right: 2rem;
+    padding-left: 7px;
+    margin-bottom: 30px;
+}
+.dropup, .dropend, .dropdown, .dropstart, .dropup-center, .dropdown-center {
+    display: inline-block;
+}
+
+#form-add-new-record .btn-outline-secondary{
+	display:none;
+}

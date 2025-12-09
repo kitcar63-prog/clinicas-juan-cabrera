@@ -1,0 +1,116 @@
+<?php
+$recipients = 'socialmedia@drjuancabrera.com';
+//$recipients = 'manuel@maqdevelopment.com';
+//$recipients = '#';
+if ($_POST['verificacion'] != ""){
+    exit();
+}else{
+try {
+    require './phpmailer/PHPMailerAutoload.php';
+
+    preg_match_all("/([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)/", $recipients, $addresses, PREG_OFFSET_CAPTURE);
+
+    if (!count($addresses[0])) {
+        die('MF001');
+    }
+
+    if (preg_match('/^(127\.|192\.168\.)/', $_SERVER['REMOTE_ADDR'])) {
+        die('MF002');
+    }
+
+    $template = file_get_contents('rd-mailform.tpl');
+
+    if (isset($_POST['form-type'])) {
+        switch ($_POST['form-type']){
+            case 'contact':
+                $subject = 'Mensaje de contacto desde la web clinicasdoctorjuancabrera.com';
+                break;
+            case 'subscribe':
+                $subject = 'Mensaje de contacto desde la web clinicasdoctorjuancabrera.com';
+                break;
+            case 'order':
+                $subject = 'Mensaje de contacto desde la web clinicasdoctorjuancabrera.com';
+                break;
+            default:
+                $subject = 'Mensaje de contacto desde la web clinicasdoctorjuancabrera.com';
+                break;
+        }
+    }else{
+        die('MF004');
+    }
+
+    if (isset($_POST['email'])) {
+        $template = str_replace(
+            ["<!-- #{FromState} -->", "<!-- #{FromEmail} -->"],
+            ["Email:", $_POST['email']],
+            $template);
+    }else{
+        die('MF003');
+    }
+
+    if (isset($_POST['message'])) {
+        $template = str_replace(
+            ["<!-- #{MessageState} -->", "<!-- #{MessageDescription} -->"],
+            ["Mensaje:", $_POST['message']],
+            $template);
+    }
+
+    preg_match("/(<!-- #{BeginInfo} -->)(.|\n)+(<!-- #{EndInfo} -->)/", $template, $tmp, PREG_OFFSET_CAPTURE);
+    foreach ($_POST as $key => $value) {
+        if ($key != "email"  && $key != "message" && $key != "form-type" && !empty($value)){
+            $info = str_replace(
+                ["<!-- #{BeginInfo} -->", "<!-- #{InfoState} -->", "<!-- #{InfoDescription} -->"],
+                ["", ucfirst($key) . ':', $value],
+                $tmp[0][0]);
+
+            $template = str_replace("<!-- #{EndInfo} -->", $info, $template);
+        }
+    }
+
+    $template = str_replace(
+        ["<!-- #{Subject} -->", "<!-- #{SiteName} -->"],
+        [$subject, $_SERVER['SERVER_NAME']],
+        $template);
+
+    $mail = new PHPMailer();
+$mail->IsSMTP();
+$mail->SMTPAuth = true;
+	$mail->SMTPSecure = "tsl";
+  	$mail->Host = "smtp.maqdevelopment.com";
+	$mail->Port = 25;
+	$mail->Username = "manuel.maqdevelopment.com";
+	$mail->Password = "Evolucion1";
+    $mail->From = $_SERVER['SERVER_ADDR'];
+    $mail->FromName = $_SERVER['SERVER_NAME'];
+$mail->AddBCC('maq@maqdevelopment.com', 'copia oculta');
+$mail->AddBCC('clara@diswag.com', 'copia aculta');
+//$mail->AddBCC('manuel@maqdevelopment.com', 'copia aculta');
+
+
+
+    foreach ($addresses[0] as $key => $value) {
+        $mail->addAddress($value[0]);
+    }
+
+    $mail->CharSet = 'utf-8';
+    $mail->Subject = $subject;
+    $mail->MsgHTML($template);
+
+    if (isset($_FILES['attachment'])) {
+        foreach ($_FILES['attachment']['error'] as $key => $error) {
+            if ($error == UPLOAD_ERR_OK) {
+                $mail->AddAttachment($_FILES['attachment']['tmp_name'][$key], $_FILES['Attachment']['name'][$key]);
+            }
+        }
+    }
+if($_POST['name']!="" && $_POST['email']!="" && $_POST['telefono']!="" && $_POST['provincia']!="" && $_POST['message']!=""){
+    $mail->send();
+    die('MF000');
+}
+} catch (phpmailerException $e) {
+    die('MF254');
+} catch (Exception $e) {
+    die('MF255');
+}
+}
+?>

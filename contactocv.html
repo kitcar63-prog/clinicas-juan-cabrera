@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Clínica Dr Juan Cabrera - CV</title>
+
+<link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Links -->
+    <link href="css/search.css" rel="stylesheet">
+    <link href="css/jquery.fancybox.css" rel="stylesheet">
+    <link href="css/mailform.css" rel="stylesheet">
+
+
+    <!--JS-->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/..">
+            <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820"
+                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/>
+        </a>
+    </div>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+    <script src='js/device.min.js'></script>
+
+
+
+</head>
+<body>
+<div class="page">
+    <!--========================================================
+                              HEADER
+    =========================================================-->
+       
+    <!--========================================================
+                              CONTENT
+    =========================================================-->
+    <main>
+        <style>
+		body {
+    background-color: #fff;
+    padding-top: 0;
+		}
+					  .well6__ins {
+    background-color: #fff;
+	padding-bottom: 100px;
+	padding-top: 0;
+}
+main div.container {
+        max-width: 500px;
+    }
+					#form select {
+ 
+  background: #f2f4f6 url('images/select.png') no-repeat !important;
+  background-size: 15px !important;
+  background-position:  right 10px center !important;
+ 
+}
+#drop-zone {
+    border: 3px dashed #545454;
+    padding: 20px;
+    text-align: center;
+    height: 100px;
+    display: flex; /* Activa Flexbox */
+    flex-direction: column; /* Coloca los elementos en una columna */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    gap: 10px; /* Espaciado entre las líneas de texto */
+}
+
+#drop-zone p {
+    margin: 0; /* Elimina el margen por defecto de los párrafos */
+}
+#drop-zone.dragover {
+    background-color: #e0e0e0;
+}
+#result-message{
+color: #339700;
+    text-align: center;
+    padding-top: 4px;
+    display: block;
+}
+.cabeceralogo{
+	width:100%;
+	text-align:center;
+}
+.cabeceralogo .logocc{
+	    padding-bottom: 60px;
+    padding-top: 40px;
+}
+.textos{
+	    padding-left: 15px;
+    padding-right: 15px;
+}
+ </style>  
+
+        <section class="bg-secondary2 well6 well6__ins">
+            <div class="container">
+            <div class="cabeceralogo">
+             <img class="logocc" src="https://www.clinicasdoctorjuancabrera.com/images/logo.webp">
+                <h5>Contacto CV</h5>
+                
+</div>
+                <div class="row">
+                <div class="textos">
+                Buscamos para nuestro centro en Granada médico titulado (no es necesaria especialidad ni experiencia en el área ). 
+La formación la aporta la Clínica dedicada al tratamiento de varices, hemorroides y malformaciones venosas.<br><br>
+* Sueldo acorde con jornada completa. <br>
+* ⁠No compatible con otra actividad Médica.<br>
+* ⁠Manejo de Inglés a nivel conversación.<br><br>
+
+Si estás interesado/a en unirte a nuestro equipo envía tu CV.<br><br>
+                </div>
+                        <div class="mailform_wrap">
+                   
+ 
+
+                            <form id="form" class='mailform' method="post"  enctype="multipart/form-data">
+                                <input type="hidden" name="form-type" value="contact"/>
+                         
+                     
+                                <fieldset>
+
+                          
+                                     <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label data-add-placeholder="">
+                                            <input type="text"
+                                                   name="nombre"
+                                                   placeholder="*Tu nombre"
+                                                   data-constraints="@NotEmpty"/>
+                                        </label>
+                                    </div>
+                                     <div class="col-md-12 col-sm-12 col-xs-12 off_mail">
+                                        <label data-add-placeholder="">
+                                            <input type="text"
+                                                   name="apellido"
+                                                   placeholder="*Tu apellido"
+                                                   data-constraints="@NotEmpty"/>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 off_mail">
+                                        <label data-add-placeholder="">
+                                            <input type="text"
+                                                   name="email"
+                                                   placeholder="*Tu Email"
+                                                   data-constraints="@Email @NotEmpty"/>
+                                        </label>
+                                    </div>
+                                     <div class="col-md-12 col-sm-12 col-xs-12 off_mail">
+                                        <label data-add-placeholder="">
+                                            <input type="text"
+                                                   name="telefono"
+                                                   placeholder="*Tu teléfono"
+                                                   data-constraints="@Phone @NotEmpty"/>
+                                        </label>
+                                    </div>
+                                  <!-- Campo de archivo PDF obligatorio -->
+        <div class="col-md-12 col-sm-12 col-xs-12 off_mail">
+            <label data-add-placeholder="">
+                <input type="file"
+                       name="archivo"
+                       id="archivo"
+                       accept="application/pdf"
+                       style="display: none;"/>
+                <div id="drop-zone" >
+                  <p>CURRICULUM VITAE</p>
+    <p>Arrastra y suelta un archivo PDF aquí o haz clic para seleccionar</p>
+                </div>
+                <p id="file-info" style="margin-top: 10px;text-align: center;"></p>
+            </label>
+            <div class="archivo-error" style="color: red;text-align: center;padding-top:5px;"></div>
+        </div>
+                      
+
+                                  
+  
+                                 
+                                     
+
+                             
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="mfControls">
+                                 
+                                            <button class="btn btn-primary" type="submit">Enviar</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                             <div id="result-message" ></div>
+                        </div>
+                    </div>
+            </div>
+             <script type="text/javascript">
+$(document).ready(function() {
+    // Reinicia el input file cuando se haga clic en el área de arrastrar y soltar
+    $('#drop-zone').on('click', function() {
+        $('#archivo').val(null); // Esto garantiza que siempre se pueda seleccionar el archivo
+    });
+
+    // Maneja la selección de archivos desde el input file
+    $('#archivo').on('change', function() {
+        if (this.files.length > 0) {
+            handleFiles(this.files);
+        }
+    });
+
+    // Maneja el evento de arrastrar el archivo
+    $('#drop-zone').on('dragover', function(e) {
+        e.preventDefault();
+        $(this).addClass('dragover');
+    });
+
+    $('#drop-zone').on('dragleave', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+    });
+
+    // Maneja el evento de soltar archivo
+    $('#drop-zone').on('drop', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+
+        let files = e.originalEvent.dataTransfer.files;
+        if (files.length > 0) {
+            $('#archivo')[0].files = files; // Asigna archivos al input
+            handleFiles(files); // Llama a la función handleFiles
+        }
+    });
+	   // Validación y envío del formulario
+    var form = $('#form');
+    var fileInput = $('#archivo');
+    var archivoError = $('.archivo-error');
+    var fileInfo = $('#file-info'); // Para mostrar el nombre del archivo
+
+    // Definición de la función handleFiles
+    function handleFiles(files) {
+        let file = files[0];
+        if (file && file.type === "application/pdf") {
+			 archivoError.text('');
+            $('#file-info').text('Archivo seleccionado: ' + file.name);
+        } else {
+				 archivoError.text('Por favor, selecciona solo archivo PDF.');
+            $('#archivo').val(null); // Reinicia el campo de archivo si el tipo no es PDF
+            $('#file-info').text(''); // Limpiar mensaje de archivo
+        }
+    }
+
+ 
+
+    form.on('submit', function(e) {
+        e.preventDefault(); // Prevenir el envío estándar del formulario
+    if (form.find('.mfValidation.show.error').length > 0) {
+        $('#result-message').text('Por favor, corrige los campos.');
+        $('#result-message').css('color', 'red');
+        return; // Salir de la función si hay errores de validación
+    }
+
+        archivoError.text(''); // Limpiar el mensaje de error anterior
+        fileInfo.text(''); // Limpiar la información del archivo
+ 
+        // Validar si se seleccionó un archivo
+        if (fileInput[0].files.length === 0) {
+            archivoError.text('El archivo es obligatorio.');
+            return; // Salir de la función si no hay archivo
+        }
+
+        var file = fileInput[0].files[0];
+        // Validar el tipo de archivo
+        if (file.type !== 'application/pdf') {
+            archivoError.text('Solo se permiten archivos PDF.');
+            return; // Salir de la función si el archivo no es PDF
+        }
+
+        // Si la validación pasa, mostrar el nombre del archivo
+        fileInfo.text('Archivo seleccionado: ' + file.name);
+
+        // Preparar el envío por AJAX
+        var formData = new FormData(form[0]);
+$('#result-message').text('Espere. Enviando...');
+                    $('#result-message').css('color', '#339700');
+        // Envío AJAX
+        $.ajax({
+            url: 'bat/enviocv.php', // Cambia a la ruta correcta de tu archivo PHP
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response === 'MF000') {
+                    $('#result-message').text('Formulario enviado correctamente.');
+                    $('#result-message').css('color', '#339700');
+                } else {
+                    $('#result-message').text('Error en el envío del formulario.');
+                    $('#result-message').css('color', 'red');
+                }
+            },
+            error: function(xhr, status, error) {
+        $('#result-message').text('Error en el envío del formulario.');
+        $('#result-message').css('color', 'red');
+    }
+        });
+    });
+});
+
+
+	   
+    </script>
+        </section>
+       
+    </main>
+
+   
+    
+</div>
+
+    <!--========================================================
+                               FOOTER
+     =========================================================-->
+      <footer>
+        <div class="bg-secondary2">
+            <div class="footer-well">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="copyright">
+                                <h5>Copyright</h5>
+
+                                <a class="footer-brand" href="./"><img src="images/logopie.png"></a><br><br>
+
+                                <p>©
+                                    <span id="copyright-year"></span>
+                                    <a href="politica-privacidad.html">Política privacidad</a></p>
+
+                                </a>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <h5>Quiénes somos</h5>
+
+                            <p>En Clínicas Dr. Juan Cabrera ofrecemos a nuestros pacientes la mejor alternativa para solucionar sus problemas de varices gracias a la escleroterapia con microespuma. única técnica, hoy por hoy capaz de tratar sin cirugía y con éxito pequeñas, medianas y grandes varices, además de úlceras y malformaciones venosas.</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="contact-us">
+                                
+
+                               
+                            </div>
+                        </div>
+                    </div><br><br><p><center><a href="avisolegal.html">Aviso legal</a> - <a href="politica-privacidad.html">Política de privacidad</a> - <a href="politicacookies.html">Política de cookies</a><br><br><a href="https://dataevalua.com/clinicasdoctorjuancabrera-com/" target="_blank"><img src="images/rgpd.png"></a><a href="https://dataevalua.com/clinicasdoctorjuancabrera-com/" target="_blank"><img src="images/lssi.png"></a></center></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/tm-scripts.js"></script>
+<!-- </script> -->
+
+
+
+
+</body>
+</html> 

@@ -1,0 +1,84 @@
+/* GDPR Cookie dialog */
+.gdprcookie-types{
+text-align: center;
+    width: 100%;
+}
+.tabla td,.tabla th{
+padding: 5px;
+    line-height: 14px;
+    border: #dedede 1px solid;
+}
+.gdprcookie-intro p{
+    line-height: 14px;
+    margin: 0;
+}
+.gdprcookie {
+ position: fixed;
+    color: white;
+    font-size: 12px;
+    line-height: 12px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+	z-index: 999999;
+    /* max-width: 25em; */
+    padding: 1rem;
+    background: black;
+}
+.gdprcookie h1,
+.gdprcookie h2 {
+    font-size: 1.2em;
+    margin-bottom: .5rem;
+}
+.gdprcookie h2 {
+    font-size: 1.2em;
+}
+.gdprcookie a {
+    color: inherit;
+}
+
+
+/* GDPR Cookie buttons */
+
+.gdprcookie-buttons {
+  text-align: center;
+    padding-top: 8px;
+    padding-bottom: 5px;
+}
+.gdprcookie-buttons button {
+    color: white;
+    font-family: inherit;
+    font-size: 1em;
+    padding: .4rem;
+    border: solid .05rem currentColor;
+    border-radius: .15rem;
+    margin: 0 .5rem;
+    background: none;
+    cursor: pointer;
+}
+.gdprcookie-buttons button:disabled {
+    color: rgba(255,255,255,.5);
+}
+
+
+/* GDPR Cookie types */
+
+.gdprcookie-types ul {
+ display: inline-block;
+    text-align: left;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 0 1rem;
+    max-width: 300px;
+}
+.gdprcookie-types li {
+    display: block;
+    list-style: none;
+    float: left;
+    width: 50%;
+    padding: 0;
+    margin: 0;
+}
+.gdprcookie-types input[type=checkbox] {
+    margin-right: .25rem;
+}
