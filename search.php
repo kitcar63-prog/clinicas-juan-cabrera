@@ -86,7 +86,7 @@
                 
                   <li><a href="mailto:clinicas&commat;drjuancabrera&period;com">clinicas&commat;drjuancabrera&period;com</a></li> 
                    
-                  <br><span class="ciudades">Barcelona - Granada - La Coruña - Madrid</span>
+                  <br><span class="ciudades">Barcelona - Granada - La Coruña</span>
               </ul>
              
             </div>
