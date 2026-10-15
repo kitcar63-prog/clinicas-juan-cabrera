@@ -1,0 +1,24 @@
+---
+import Articulo from '../layouts/Articulo.astro'
+import { PAGINAS, preguntasFrecuentes } from '../datos/contenido.js'
+
+const datos = PAGINAS['faq']
+const preguntas = preguntasFrecuentes()
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: preguntas.map((q) => ({
+    '@type': 'Question',
+    name: q.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: q.respuesta },
+  })),
+}
+---
+<Articulo
+  datos={datos}
+  seccion="Pacientes"
+  enlaceSeccion="/preguntas-frecuentes/"
+  entradilla="Diariamente los angiólogos y cirujanos vasculares aclaramos dudas a nuestros pacientes y respondemos preguntas que rodean a la patología venosa."
+  jsonLdExtra={faqLd}
+/>

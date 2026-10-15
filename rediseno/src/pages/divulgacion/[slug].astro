@@ -1,0 +1,17 @@
+---
+import Articulo from '../../layouts/Articulo.astro'
+import { PAGINAS } from '../../datos/contenido.js'
+
+export function getStaticPaths() {
+  return [{ params: { slug: 'historia-escleroterapia' } }]
+}
+
+const { slug } = Astro.params
+const datos = PAGINAS[slug]
+---
+<Articulo
+  datos={datos}
+  seccion="Divulgación"
+  enlaceSeccion="/divulgacion/"
+  entradilla={datos.frontmatter.descripcion}
+/>

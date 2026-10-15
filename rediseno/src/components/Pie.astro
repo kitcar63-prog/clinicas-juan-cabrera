@@ -1,0 +1,68 @@
+---
+import { CLINICAS, PATOLOGIAS, SITIO } from '../datos/sitio.js'
+import { NAV_SECUNDARIA } from '../datos/navegacion.js'
+---
+<footer class="pie">
+  <div class="pie__rejilla">
+    <div class="pie__marca">
+      <span class="pie__nombre">Dr. Juan Cabrera</span>
+      <p>Escleroterapia con microespuma. La técnica que patentamos en Granada en 1993.</p>
+    </div>
+
+    <nav class="pie__col ui" aria-label="Patologías">
+      <span class="rotulo pie__rotulo">Patologías</span>
+      {PATOLOGIAS.slice(0, 5).map((p) => <a href={`/patologias/${p.slug}/`}>{p.nombre}</a>)}
+    </nav>
+
+    <nav class="pie__col ui" aria-label="Clínicas">
+      <span class="rotulo pie__rotulo">Clínicas</span>
+      {CLINICAS.map((c) => <a href={`/clinicas/${c.slug}/`}>{c.nombre} · {c.telefonos[0]}</a>)}
+      <a href={`mailto:${SITIO.email}`}>{SITIO.email}</a>
+    </nav>
+
+    <nav class="pie__col ui" aria-label="La clínica">
+      <span class="rotulo pie__rotulo">La clínica</span>
+      {NAV_SECUNDARIA.map((e) => <a href={e.url}>{e.nombre}</a>)}
+    </nav>
+
+    <div class="pie__col ui">
+      <span class="rotulo pie__rotulo">Registros sanitarios</span>
+      {CLINICAS.map((c) => <span>{c.nombre} · {c.registroSanitario}</span>)}
+      <span class="pie__nota">Dirección médica: Dr. Juan Cabrera Garrido, colegiado {SITIO.colegiado}</span>
+    </div>
+  </div>
+
+  <div class="pie__legal ui">
+    <span>© {new Date().getFullYear()} {SITIO.nombre}</span>
+    <nav aria-label="Legal">
+      <a href="/aviso-legal/">Aviso legal</a>
+      <a href="/politica-privacidad/">Política de privacidad</a>
+      <a href="/politica-cookies/">Política de cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .pie { padding: 4.5rem var(--borde) 2rem; background: var(--tinta); color: #9AA7B3; font-size: .95rem; }
+  .pie__rejilla { display: grid; grid-template-columns: minmax(0, 1fr) 180px 190px 230px 250px; gap: 2.5rem; }
+  .pie__marca p { max-width: 22rem; line-height: 1.6; }
+  .pie__nombre { display: block; font-family: var(--serif); font-size: 2.6rem; letter-spacing: -.03em; line-height: 1; color: var(--papel); margin-bottom: 1.1rem; }
+  .pie__col { display: flex; flex-direction: column; gap: .7rem; font-size: .875rem; }
+  .pie__col a { color: #9AA7B3; }
+  .pie__col a:hover { color: var(--espuma); }
+  .pie__rotulo { color: var(--papel); margin-bottom: .2rem; }
+  .pie__nota { font-size: .8rem; line-height: 1.5; color: #6E7B87; }
+  .pie__legal {
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    margin-top: 2.8rem; padding-top: 1.6rem; border-top: 1px solid #1E3145; font-size: .78rem;
+  }
+  .pie__legal nav { display: flex; gap: 1.6rem; flex-wrap: wrap; }
+  .pie__legal a { color: #9AA7B3; display: inline-flex; align-items: center; min-height: 44px; }
+
+  @media (max-width: 900px) {
+    .pie { padding-bottom: 6.5rem; }
+    .pie__rejilla { grid-template-columns: 1fr; gap: 2.2rem; }
+    .pie__nombre { font-size: 1.9rem; }
+    .pie__legal { margin-top: 1.8rem; }
+  }
+</style>

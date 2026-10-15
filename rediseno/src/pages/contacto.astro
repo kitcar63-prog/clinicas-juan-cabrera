@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro'
+import Formulario from '../components/Formulario.astro'
+import { CLINICAS, SITIO, migasLd } from '../datos/sitio.js'
+const migas = migasLd('/contacto/', 'Contacto')
+---
+<Base
+  titulo={`Contacto · ${SITIO.nombre}`}
+  descripcion="Llámanos o déjanos tu teléfono y te llamamos sin coste desde la clínica de Granada, Barcelona o A Coruña."
+  jsonLd={migas}
+>
+  <div class="envoltorio cabezal">
+    <span class="rotulo">Contacto</span>
+    <h1>Hablamos cuando te venga bien</h1>
+    <p class="cabezal__lead">
+      Llámanos directamente en horario de atención o déjanos tu teléfono y te llamamos nosotros sin coste. Te atiende
+      personal de la clínica.
+    </p>
+  </div>
+
+  <section class="sedes envoltorio" aria-label="Sedes">
+    {CLINICAS.map((c) => (
+      <div class="sede">
+        <h2>{c.nombre}</h2>
+        <p class="sede__dir">{c.direccion}<br />{c.cp} {c.ciudad}</p>
+        <a class="ui sede__tel" href={`tel:${c.telefonoE164}`}>{c.telefonos[0]}</a>
+        <span class="ui sede__reg">Registro sanitario {c.registroSanitario}</span>
+      </div>
+    ))}
+  </section>
+
+  <section class="seccion seccion--blanco">
+    <div class="envoltorio bloque">
+      <div>
+        <h2>Te llamamos gratis</h2>
+        <ul class="garantias">
+          <li>Solo usamos tus datos para responder a tu solicitud y organizar tu cita.</li>
+          <li>No los cedemos a terceros y puedes pedir su supresión cuando quieras.</li>
+          <li>Los datos de salud requieren un consentimiento expreso y separado.</li>
+        </ul>
+        <a class="ui enlace-legal" href="/politica-privacidad/">Leer la política de privacidad completa →</a>
+        <p class="ui correo">O escríbenos a <a href={`mailto:${SITIO.email}`}>{SITIO.email}</a></p>
+      </div>
+      <div class="caja"><Formulario /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .cabezal { padding-block: 3.5rem 2.5rem; }
+  .cabezal .rotulo { display: block; margin-bottom: 1.2rem; }
+  .cabezal__lead { margin-top: 1.2rem; font-size: 1.2rem; line-height: 1.55; color: var(--tinta-3); max-width: 44ch; }
+  .sedes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; padding-bottom: 3.5rem; }
+  .sede { display: flex; flex-direction: column; gap: .5rem; padding-top: 1.4rem; border-top: 2px solid var(--tinta); }
+  .sede h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .sede__dir { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .sede__tel { font-size: 1.2rem; font-weight: 600; color: var(--tinta); }
+  .sede__reg { font-size: .78rem; color: var(--tinta-4); }
+  .bloque { display: grid; grid-template-columns: minmax(0, 1fr) 520px; gap: 4.5rem; align-items: start; }
+  .garantias { list-style: none; margin: 1.8rem 0; padding: 0; }
+  .garantias li { padding: 1.1rem 0 1.1rem 2.2rem; border-top: 1px solid var(--linea-2); font-size: 1.05rem; line-height: 1.6; color: var(--tinta-2); position: relative; }
+  .garantias li::before { content: '✓'; position: absolute; left: 0; color: var(--azul); }
+  .garantias li:last-child { border-bottom: 1px solid var(--linea-2); }
+  .enlace-legal { font-size: .85rem; font-weight: 600; }
+  .correo { margin-top: 1.4rem; font-size: .95rem; color: var(--tinta-3); }
+  .caja { padding: 2.2rem; background: var(--papel); }
+  @media (max-width: 1080px) {
+    .sedes { grid-template-columns: 1fr; gap: 2rem; }
+    .bloque { grid-template-columns: 1fr; gap: 2.5rem; }
+    .caja { padding: 1.5rem; }
+  }
+</style>

@@ -1,0 +1,200 @@
+---
+import Base from '../../layouts/Base.astro'
+import Imagen from '../../components/Imagen.astro'
+import { CLINICAS, PATOLOGIAS, SITIO } from '../../datos/sitio.js'
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'granada' } },
+    { params: { slug: 'barcelona' } },
+    { params: { slug: 'a-coruna' } },
+  ]
+}
+
+const { slug } = Astro.params
+const c = CLINICAS.find((x) => x.slug === slug)
+const otras = CLINICAS.filter((x) => x.slug !== slug)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalClinic',
+  name: `${SITIO.nombre} — ${c.nombre}`,
+  url: new URL(`/clinicas/${c.slug}/`, SITIO.url).href,
+  telephone: c.telefonoE164,
+  medicalSpecialty: 'Phlebology',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: c.direccion,
+    postalCode: c.cp,
+    addressLocality: c.ciudad,
+    addressRegion: c.provincia,
+    addressCountry: 'ES',
+  },
+  identifier: { '@type': 'PropertyValue', name: 'Registro sanitario', value: c.registroSanitario },
+}
+
+const migasLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITIO.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Clínicas', item: SITIO.url + '/clinicas/' },
+    { '@type': 'ListItem', position: 3, name: c.nombre },
+  ],
+}
+---
+<Base
+  titulo={`Tratamiento de varices en ${c.ciudad} · ${SITIO.nombre}`}
+  descripcion={`Tratamos varices, hemorroides y úlceras sin cirugía en ${c.ciudad}, con escleroterapia con microespuma. Registro sanitario ${c.registroSanitario}.`}
+  imagen={`/img/${c.foto.replace(/^images\//, "").replace(/\.[a-z]+$/i, "")}-1600.webp`}
+  jsonLd={[jsonLd, migasLd]}
+>
+  <nav class="migas ui envoltorio" aria-label="Migas de pan">
+    <a href="/">Inicio</a><span aria-hidden="true">/</span>
+    <a href="/clinicas/">Clínicas</a><span aria-hidden="true">/</span>
+    <span aria-current="page">{c.nombre}</span>
+  </nav>
+
+  <section class="cabezal envoltorio">
+    <div>
+      <span class="rotulo">Clínica · {c.nombre}</span>
+      <h1>Tratamiento de varices en {c.ciudad}</h1>
+      <p class="cabezal__lead">
+        Eliminamos varices, arañas vasculares, hemorroides y malformaciones venosas sin cirugía, con escleroterapia con
+        microespuma.
+      </p>
+    </div>
+    <Imagen src={c.foto} alt={`Equipo de la clínica de ${c.nombre}`} ancho="(max-width: 1080px) 100vw, 45vw" clase="cabezal__foto" carga="eager" />
+  </section>
+
+  <section class="datos envoltorio" aria-label="Datos de la clínica">
+    <div class="dato">
+      <span class="rotulo">Dirección</span>
+      <p>{c.direccion}<br />{c.cp} {c.ciudad}</p>
+    </div>
+    <div class="dato">
+      <span class="rotulo">Teléfono</span>
+      <p>{c.telefonos.map((t) => <a href={`tel:${c.telefonoE164}`}>{t}</a>)}</p>
+    </div>
+    <div class="dato">
+      <span class="rotulo">Horario</span>
+      <p>[HORARIO PENDIENTE]</p>
+    </div>
+    <div class="dato dato--acento">
+      <span class="rotulo">Registro sanitario</span>
+      <p>{c.registroSanitario}</p>
+    </div>
+  </section>
+
+  <section class="cita">
+    <div class="cita__mapa" aria-hidden="true"><span class="rotulo">Mapa pendiente de integrar</span></div>
+    <div class="cita__panel">
+      <h2>Pide cita en {c.nombre}</h2>
+      <p>Primera consulta con exploración por eco-doppler y plan de tratamiento.</p>
+      <a class="boton cita__boton" href="/contacto/">Contacto</a>
+      <a class="boton-sec cita__boton cita__boton--claro" href={`tel:${c.telefonoE164}`}>Llamar ahora</a>
+    </div>
+  </section>
+
+  <section class="seccion envoltorio">
+    <div class="cabecera-seccion">
+      <span class="rotulo">01 — Quién te atiende</span>
+      <h2>Equipo médico de esta clínica</h2>
+    </div>
+    <div class="lista-filetes equipo">
+      {c.equipo.map((m) => (
+        <div class="equipo__fila">
+          <span class="equipo__nombre">{m.nombre}</span>
+          <span class="ui equipo__puesto">{m.puesto}</span>
+        </div>
+      ))}
+    </div>
+    <div class="extra">
+      {c.enfermeria.length > 0 && (
+        <div>
+          <span class="rotulo">Enfermería y auxiliares</span>
+          <p>{c.enfermeria.join(' · ')}</p>
+        </div>
+      )}
+      {c.administracion.length > 0 && (
+        <div>
+          <span class="rotulo">Administración</span>
+          <p>{c.administracion.join(' · ')}</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="seccion seccion--blanco">
+    <div class="envoltorio">
+      <div class="cabecera-seccion">
+        <span class="rotulo">02 — Qué tratamos aquí</span>
+        <h2>Las mismas patologías en las tres sedes</h2>
+      </div>
+      <div class="lista-filetes">
+        {PATOLOGIAS.map((p) => (
+          <a href={`/patologias/${p.slug}/`} class="pat">
+            <span class="pat__nombre">{p.nombre}</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="otras envoltorio">
+    <h2>¿Te viene mejor otra sede?</h2>
+    <div class="otras__enlaces">
+      {otras.map((o) => <a class="boton-sec" href={`/clinicas/${o.slug}/`}>{o.nombre}</a>)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .migas { display: flex; align-items: center; gap: .6rem; padding-block: 1rem; border-bottom: 1px solid var(--linea-2); font-size: .78rem; color: var(--tinta-4); }
+  .migas a { color: var(--tinta-4); }
+  .migas [aria-current] { color: var(--tinta); font-weight: 600; }
+
+  .cabezal { display: grid; grid-template-columns: minmax(0, 1fr) 46%; gap: 3.5rem; align-items: end; padding-block: 3rem 2.5rem; }
+  .cabezal .rotulo { display: block; margin-bottom: 1.2rem; }
+  .cabezal__lead { margin-top: 1.2rem; font-size: 1.2rem; line-height: 1.55; color: var(--tinta-3); max-width: 42ch; }
+  .cabezal__foto { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+
+  .datos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem; padding-bottom: 3.5rem; }
+  .dato { padding-top: 1.3rem; border-top: 2px solid var(--tinta); }
+  .dato--acento { border-top-color: var(--azul); }
+  .dato .rotulo { display: block; margin-bottom: .6rem; }
+  .dato p { margin: 0; font-size: 1.25rem; line-height: 1.4; }
+  .dato a { display: block; color: var(--tinta); }
+
+  .cita { display: grid; grid-template-columns: minmax(0, 1fr) 420px; border-top: 1px solid var(--linea); }
+  .cita__mapa { display: flex; align-items: center; justify-content: center; min-height: 340px; background: #E8E5DD; }
+  .cita__panel { display: flex; flex-direction: column; justify-content: center; gap: 1rem; padding: 3rem; background: var(--azul); color: #fff; }
+  .cita__panel h2 { color: #fff; }
+  .cita__panel p { color: #D3E4F5; }
+  .cita__boton { width: 100%; background: var(--tinta); border-color: var(--tinta); color: #fff; }
+  .cita__boton--claro { background: transparent; border-color: #7FB0E0; }
+  .cita__boton--claro:hover { background: #fff; color: var(--azul); }
+
+  .equipo__fila { grid-template-columns: minmax(0, 1fr) 420px; }
+  .equipo__nombre { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 1.9rem); letter-spacing: -.025em; }
+  .equipo__puesto { font-size: .95rem; color: var(--tinta-3); }
+  .extra { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; margin-top: 2.5rem; }
+  .extra > div { padding-top: 1.2rem; border-top: 1px solid var(--linea); }
+  .extra .rotulo { display: block; margin-bottom: .5rem; }
+  .extra p { margin: 0; font-size: 1.1rem; line-height: 1.55; color: var(--tinta-2); }
+
+  .pat { color: var(--tinta); }
+  .pat__nombre { font-family: var(--serif); font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: -.025em; }
+
+  .otras { display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; flex-wrap: wrap; padding-block: 3.5rem; }
+  .otras__enlaces { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+  @media (max-width: 1080px) {
+    .cabezal, .cita { grid-template-columns: 1fr; gap: 2rem; }
+    .datos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .equipo__fila { grid-template-columns: 1fr; gap: .3rem; align-items: start; }
+    .extra { grid-template-columns: 1fr; gap: 1.8rem; }
+    .cita__panel { padding: 2rem var(--borde); }
+  }
+</style>

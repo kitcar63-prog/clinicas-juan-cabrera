@@ -1,0 +1,16 @@
+---
+const { src, alt = '', ancho = '(max-width: 900px) 100vw, 50vw', clase = '', estilo = '', carga = 'lazy' } = Astro.props
+const base = '/img/' + src.replace(/^images\//, '').replace(/\.[a-zA-Z0-9]+$/, '')
+const anchos = [480, 960, 1600]
+const srcset = anchos.map((w) => `${base}-${w}.webp ${w}w`).join(', ')
+---
+<img
+  src={`${base}-960.webp`}
+  srcset={srcset}
+  sizes={ancho}
+  alt={alt}
+  class={clase}
+  style={estilo}
+  loading={carga}
+  decoding="async"
+/>

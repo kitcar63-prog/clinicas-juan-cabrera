@@ -1,0 +1,228 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "astro build",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/pedir-cita/",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/pedir-cita",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index3.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index_antes.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.precovid.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index_oferta.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index_oferta2.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index_oferta_2025.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/varices.html",
+      "destination": "/patologias/varices/",
+      "permanent": true
+    },
+    {
+      "source": "/variz.html",
+      "destination": "/divulgacion/que-es-una-variz/",
+      "permanent": true
+    },
+    {
+      "source": "/ulceras-varicosas.html",
+      "destination": "/patologias/ulceras-varicosas/",
+      "permanent": true
+    },
+    {
+      "source": "/hemorroides.html",
+      "destination": "/patologias/hemorroides/",
+      "permanent": true
+    },
+    {
+      "source": "/malformaciones-vasculares.html",
+      "destination": "/patologias/malformaciones-vasculares/",
+      "permanent": true
+    },
+    {
+      "source": "/diagnostico-arana-vasculares.html",
+      "destination": "/patologias/aranas-vasculares/",
+      "permanent": true
+    },
+    {
+      "source": "/varices-embarazo.html",
+      "destination": "/patologias/varices-embarazo/",
+      "permanent": true
+    },
+    {
+      "source": "/varices-deportistas.html",
+      "destination": "/patologias/varices-deportistas/",
+      "permanent": true
+    },
+    {
+      "source": "/eliminar-grandes-varices.html",
+      "destination": "/patologias/eliminar-grandes-varices/",
+      "permanent": true
+    },
+    {
+      "source": "/tratamientos.html",
+      "destination": "/patologias/",
+      "permanent": true
+    },
+    {
+      "source": "/microespuma.html",
+      "destination": "/tratamiento/microespuma/",
+      "permanent": true
+    },
+    {
+      "source": "/tratamiento-microespuma.html",
+      "destination": "/tratamiento/tratamiento-microespuma/",
+      "permanent": true
+    },
+    {
+      "source": "/tecnica-aplicacion.html",
+      "destination": "/tratamiento/tecnica-aplicacion/",
+      "permanent": true
+    },
+    {
+      "source": "/historia-escleroterapia.html",
+      "destination": "/divulgacion/historia-escleroterapia/",
+      "permanent": true
+    },
+    {
+      "source": "/divulgacion.html",
+      "destination": "/divulgacion/",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/preguntas-frecuentes/",
+      "permanent": true
+    },
+    {
+      "source": "/equipo.html",
+      "destination": "/equipo/",
+      "permanent": true
+    },
+    {
+      "source": "/equipo_old.html",
+      "destination": "/equipo/",
+      "permanent": true
+    },
+    {
+      "source": "/quienes-somos.html",
+      "destination": "/la-clinica/",
+      "permanent": true
+    },
+    {
+      "source": "/empresas-vinculadas.html",
+      "destination": "/investigacion/",
+      "permanent": true
+    },
+    {
+      "source": "/contacto.html",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/contactoactual.html",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/contacto_captcha.html",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/contactorecaptcha.html",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/contactocv.html",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/registro.html",
+      "destination": "/contacto/",
+      "permanent": true
+    },
+    {
+      "source": "/protocolo-covid19.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/avisolegal.html",
+      "destination": "/aviso-legal/",
+      "permanent": true
+    },
+    {
+      "source": "/politica-privacidad.html",
+      "destination": "/politica-privacidad/",
+      "permanent": true
+    },
+    {
+      "source": "/politica-privacidad-contacto.html",
+      "destination": "/politica-privacidad/",
+      "permanent": true
+    },
+    {
+      "source": "/politicacookies.html",
+      "destination": "/politica-cookies/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

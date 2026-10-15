@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro'
+import { PATOLOGIAS, SITIO, migasLd } from '../../datos/sitio.js'
+const migas = migasLd('/patologias/', 'Patologías')
+---
+<Base
+  titulo={`Patologías que tratamos · ${SITIO.nombre}`}
+  descripcion="Varices, arañas vasculares, hemorroides, úlceras varicosas y malformaciones vasculares, tratadas con escleroterapia con microespuma."
+  jsonLd={migas}
+>
+  <div class="envoltorio cabezal">
+    <span class="rotulo">Patologías</span>
+    <h1>Qué tratamos</h1>
+    <p class="cabezal__lead">Todas nuestras patologías se tratan con la misma técnica y los mismos protocolos en las tres clínicas.</p>
+  </div>
+  <div class="envoltorio seccion">
+    <div class="lista-filetes">
+      {PATOLOGIAS.map((p) => (
+        <a href={`/patologias/${p.slug}/`} class="fila">
+          <span class="fila__interior">
+            <span class="fila__nombre">{p.nombre}</span>
+            <span class="fila__resumen">{p.resumen}</span>
+          </span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>
+<style>
+  .cabezal { padding-block: 3.5rem 1rem; }
+  .cabezal .rotulo { display: block; margin-bottom: 1.2rem; }
+  .cabezal__lead { margin-top: 1.2rem; font-size: 1.2rem; line-height: 1.55; color: var(--tinta-3); max-width: 46ch; }
+  .fila { color: var(--tinta); }
+  .fila__interior { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 4rem; align-items: center; }
+  .fila__nombre { font-family: var(--serif); font-size: clamp(1.5rem, 2.4vw, 2.1rem); letter-spacing: -.025em; }
+  .fila__resumen { font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .fila:hover .fila__nombre { color: var(--azul); }
+  @media (max-width: 900px) { .fila__interior { grid-template-columns: 1fr; gap: .4rem; } }
+</style>

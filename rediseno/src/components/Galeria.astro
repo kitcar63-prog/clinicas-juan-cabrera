@@ -1,0 +1,23 @@
+---
+import Imagen from './Imagen.astro'
+const { fotos = [] } = Astro.props
+---
+{fotos.length > 0 && (
+  <section class="galeria" aria-label="Imágenes clínicas">
+    <div class="galeria__rejilla">
+      {fotos.map((f) => (
+        <figure class="galeria__pieza">
+          <Imagen src={f.src} alt={`Imagen clínica — ${f.pie.toLowerCase()}`} ancho="(max-width: 900px) 45vw, 22vw" />
+          <figcaption class="rotulo">{f.pie}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+)}
+<style>
+  .galeria { margin: 3rem 0; }
+  .galeria__rejilla { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
+  .galeria__pieza { margin: 0; display: flex; flex-direction: column; gap: .5rem; }
+  .galeria__pieza img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (max-width: 900px) { .galeria__rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

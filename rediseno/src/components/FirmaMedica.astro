@@ -1,0 +1,29 @@
+---
+import { SITIO } from '../datos/sitio.js'
+const {
+  autor = 'Dr. Juan Cabrera Garrido',
+  cargo = 'Cirujano vascular',
+  colegiado = SITIO.colegiado,
+  fecha = '[FECHA]',
+} = Astro.props
+const iniciales = autor.replace(/^Dr[a]?\.?\s*/i, '').split(/\s+/).slice(0, 2).map((w) => w[0]).join('')
+---
+<div class="firma">
+  <span class="firma__inicial" aria-hidden="true">{iniciales}</span>
+  <div class="firma__texto ui">
+    <span class="firma__nombre">Revisado por {autor}</span>
+    <span class="firma__cargo">{cargo} · Nº de colegiado {colegiado}</span>
+    <span class="firma__fecha">Última revisión médica: {fecha}</span>
+  </div>
+</div>
+<style>
+  .firma { display: flex; align-items: center; gap: .85rem; padding-top: 1.4rem; border-top: 2px solid var(--tinta); }
+  .firma__inicial {
+    flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--tinta); color: var(--papel); font-family: var(--serif); font-size: .95rem;
+  }
+  .firma__texto { display: flex; flex-direction: column; gap: .15rem; }
+  .firma__nombre { font-size: .85rem; font-weight: 600; color: var(--tinta); }
+  .firma__cargo, .firma__fecha { font-size: .78rem; color: var(--tinta-4); }
+</style>

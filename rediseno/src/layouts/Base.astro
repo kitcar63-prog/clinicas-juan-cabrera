@@ -1,0 +1,104 @@
+---
+import '../styles/global.css'
+import Cabecera from '../components/Cabecera.astro'
+import Pie from '../components/Pie.astro'
+import Asistente from '../components/Asistente.astro'
+import { SITIO, CLINICAS, FUNDADOR } from '../datos/sitio.js'
+
+const {
+  titulo,
+  descripcion = '',
+  ruta = Astro.url.pathname,
+  tipo = 'website',
+  jsonLd = null,
+  imagen = '/img/slider0-1600.webp',
+  revisadoPor = null,
+} = Astro.props
+
+const canonical = new URL(ruta, SITIO.url).href
+const imagenAbsoluta = new URL(imagen, Astro.url.origin).href
+const indexable = import.meta.env.INDEXABLE === 'true'
+
+const organizacion = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalOrganization',
+  name: SITIO.nombre,
+  url: SITIO.url,
+  email: SITIO.email,
+  medicalSpecialty: 'Phlebology',
+  founder: {
+    '@type': 'Physician',
+    name: FUNDADOR.nombre,
+    medicalSpecialty: 'Phlebology',
+    sameAs: [FUNDADOR.wikipedia, FUNDADOR.patenteUrl],
+    jobTitle: 'Cirujano vascular',
+    hasCredential: FUNDADOR.credenciales.map((c) => ({ '@type': 'EducationalOccupationalCredential', name: c })),
+    owns: {
+      '@type': 'CreativeWork',
+      name: 'Microespuma inyectable conteniendo un agente esclerosante',
+      identifier: FUNDADOR.patente,
+      url: FUNDADOR.patenteUrl,
+      datePublished: '1993',
+    },
+  },
+  location: CLINICAS.map((c) => ({
+    '@type': 'MedicalClinic',
+    name: `${SITIO.nombre} — ${c.nombre}`,
+    telephone: c.telefonoE164,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: c.direccion,
+      postalCode: c.cp,
+      addressLocality: c.ciudad,
+      addressRegion: c.provincia,
+      addressCountry: 'ES',
+    },
+    identifier: { '@type': 'PropertyValue', name: 'Registro sanitario', value: c.registroSanitario },
+  })),
+}
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    {descripcion && <meta name="description" content={descripcion} />}
+    <link rel="canonical" href={canonical} />
+    {!indexable && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content={tipo} />
+    <meta property="og:title" content={titulo} />
+    {descripcion && <meta property="og:description" content={descripcion} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={SITIO.nombre} />
+    <meta property="og:image" content={imagenAbsoluta} />
+    <meta property="og:image:alt" content="Equipo de Clínicas Dr. Juan Cabrera" />
+    <meta name="twitter:image" content={imagenAbsoluta} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Archivo:wght@400;500;600;700&display=swap"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(organizacion)} />
+    {[].concat(jsonLd ?? []).map((bloque) => <script type="application/ld+json" set:html={JSON.stringify(bloque)} />)}
+  </head>
+  <body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <Cabecera />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Pie />
+    <Asistente />
+    <style>
+      .saltar {
+        position: absolute; left: -9999px; top: 0; z-index: 100;
+        padding: .8rem 1.2rem; background: var(--tinta); color: var(--papel); font-family: var(--sans); font-size: .85rem;
+      }
+      .saltar:focus { left: 0; }
+    </style>
+  </body>
+</html>

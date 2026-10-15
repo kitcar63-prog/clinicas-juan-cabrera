@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro'
+import { PATOLOGIAS, SITIO } from '../datos/sitio.js'
+---
+<Base titulo={`Página no encontrada · ${SITIO.nombre}`} descripcion="La página que buscas no existe o ha cambiado de dirección.">
+  <section class="envoltorio error">
+    <span class="rotulo">Error 404</span>
+    <h1>Esta página ya no está aquí</h1>
+    <p class="error__lead">Puede que la dirección haya cambiado. Estas son las secciones más buscadas:</p>
+    <div class="lista-filetes">
+      {PATOLOGIAS.slice(0, 5).map((p) => (
+        <a href={`/patologias/${p.slug}/`} class="fila">
+          <span class="fila__nombre">{p.nombre}</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+      ))}
+    </div>
+    <a class="boton error__boton" href="/">Volver al inicio</a>
+  </section>
+</Base>
+<style>
+  .error { padding-block: 4rem 5rem; }
+  .error .rotulo { display: block; margin-bottom: 1.2rem; }
+  .error__lead { margin: 1.2rem 0 2rem; font-size: 1.15rem; color: var(--tinta-3); }
+  .fila { color: var(--tinta); }
+  .fila__nombre { font-family: var(--serif); font-size: clamp(1.3rem, 2vw, 1.7rem); letter-spacing: -.025em; }
+  .error__boton { margin-top: 2rem; }
+</style>

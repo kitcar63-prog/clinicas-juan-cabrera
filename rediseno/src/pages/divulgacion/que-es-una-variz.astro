@@ -1,0 +1,17 @@
+---
+import Articulo from '../../layouts/Articulo.astro'
+import { PAGINAS } from '../../datos/contenido.js'
+const datos = PAGINAS['que-es-una-variz']
+---
+<Articulo
+  datos={datos}
+  seccion="Divulgación"
+  enlaceSeccion="/divulgacion/"
+  autor="Dr. Gonzalo López"
+  cargo="Especialista en flebología. Doctor en Ingeniería Tisular, especialidad en Biomateriales"
+  entradilla="En Clínicas Dr. Juan Cabrera todos nuestros pacientes pasan por una primera visita diagnóstica en la que, además de la elaboración de la historia clínica, inspección y exploración mediante Eco Doppler Color, se les plantea esta pregunta."
+  relacionadas={[
+    { nombre: 'Varices', url: '/patologias/varices/' },
+    { nombre: 'Historia de la escleroterapia', url: '/divulgacion/historia-escleroterapia/' },
+  ]}
+/>

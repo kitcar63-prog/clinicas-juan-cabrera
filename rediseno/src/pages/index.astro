@@ -1,0 +1,327 @@
+---
+import Base from '../layouts/Base.astro'
+import Imagen from '../components/Imagen.astro'
+import { CLINICAS, PATOLOGIAS, SITIO, FUNDADOR } from '../datos/sitio.js'
+import { preguntasFrecuentes } from '../datos/contenido.js'
+
+const principal = CLINICAS[0]
+const preguntas = preguntasFrecuentes().slice(0, 4)
+const descripcion =
+  'Eliminamos todo tipo de varices y hemorroides sin cirugía, arañas vasculares, malformaciones del sistema venoso y úlceras. Inventores de la microespuma.'
+---
+<Base
+  titulo="Clínicas Dr. Juan Cabrera — Varices y hemorroides sin cirugía"
+  descripcion={descripcion}
+>
+  <section class="portada envoltorio">
+    <div class="portada__texto">
+      <p class="portada__rotulo"><span aria-hidden="true"></span><span class="rotulo">Granada · 1993</span></p>
+      <h1>Eliminamos todo tipo de varices y hemorroides <em>sin cirugía</em></h1>
+      <p class="portada__entradilla">
+        Arañas vasculares, malformaciones del sistema venoso y úlceras. La escleroterapia con microespuma nació en
+        nuestra clínica de Granada y hoy se comercializa en Estados Unidos como Varithena®.
+      </p>
+      <div class="portada__acciones">
+        <a class="boton" href="/contacto/">Contacto</a>
+        <a class="boton-sec" href="/tratamiento/microespuma/">Cómo funciona</a>
+      </div>
+    </div>
+  </section>
+
+  <figure class="panoramica">
+    <Imagen
+      src="images/slider0.webp"
+      alt="Equipo de Clínicas Dr. Juan Cabrera ante el Instituto Internacional de Flebología"
+      ancho="100vw"
+      clase="panoramica__foto"
+      carga="eager"
+    />
+  </figure>
+
+  <section class="credenciales seccion--tinta" aria-label="Credenciales">
+    <div class="envoltorio credenciales__rejilla">
+      <div><span class="credenciales__cifra">1993</span><span class="ui credenciales__pie">Patente de la microespuma inyectable con agente esclerosante</span></div>
+      <div><span class="credenciales__cifra">2014</span><span class="ui credenciales__pie">Salida al mercado estadounidense como Varithena®</span></div>
+      <div><span class="credenciales__cifra">400 M€</span><span class="ui credenciales__pie">Invertidos por BTG plc en el desarrollo del fármaco</span></div>
+      <div><span class="credenciales__cifra">3</span><span class="ui credenciales__pie">Clínicas propias con registro sanitario</span></div>
+    </div>
+  </section>
+
+
+  <section class="autoridad">
+    <div class="envoltorio autoridad__interior">
+      <Imagen
+        src="images/quienes-somos.webp"
+        alt="Dr. Juan Ramón Cabrera Garrido"
+        ancho="260px"
+        clase="autoridad__retrato"
+      />
+      <div class="autoridad__texto">
+        <span class="rotulo autoridad__rotulo">Quién inventó la técnica</span>
+        <h2>{FUNDADOR.nombre}</h2>
+        <p class="autoridad__resena">{FUNDADOR.resena}</p>
+        <ul class="autoridad__credenciales ui">
+          <li><strong>Patente {FUNDADOR.patente}</strong> — {FUNDADOR.primeraPublicacion}</li>
+          {FUNDADOR.credenciales.slice(0, 3).map((c) => <li>{c}</li>)}
+        </ul>
+        <div class="autoridad__enlaces">
+          <a class="ui autoridad__wiki" href={FUNDADOR.wikipedia} rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h3.5l3 11 3-8.5 3 8.5 3.5-11H21"/></svg>
+            Ver en Wikipedia
+          </a>
+          <a class="ui autoridad__wiki" href={FUNDADOR.patenteUrl} rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v4h4"/></svg>
+            Ver la patente
+          </a>
+          <a class="ui autoridad__equipo" href="/equipo/">Conocer al equipo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion envoltorio">
+    <div class="cabecera-seccion">
+      <span class="rotulo">01 — Qué tratamos</span>
+      <h2>Una sola técnica para toda la patología venosa</h2>
+    </div>
+    <div class="lista-filetes">
+      {PATOLOGIAS.map((p) => (
+        <a href={`/patologias/${p.slug}/`} class="patologia">
+          <span class="patologia__interior">
+            <span class="patologia__nombre">{p.nombre}</span>
+            <span class="patologia__resumen">{p.resumen}</span>
+          </span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="seccion seccion--blanco">
+    <div class="envoltorio tecnica">
+      <div>
+        <span class="rotulo">02 — La técnica</span>
+        <h2 class="tecnica__titulo">Qué le pasa exactamente a la vena</h2>
+        <p class="tecnica__lead">
+          La Eco-escleroterapia con Microespuma℗ consiste en inyectar en las venas varicosas una novedosa forma
+          farmacéutica constituida con gases fisiológicos de elevada solubilidad en la sangre y una sustancia
+          esclerosante (Polidocanol).
+        </p>
+        <ol class="pasos">
+          <li><span class="ui pasos__n">01</span><p>El Polidocanol depositado sobre las microburbujas irrita el interior de las venas tratadas.</p></li>
+          <li><span class="ui pasos__n">02</span><p>Provoca una reacción inflamatoria pasajera que conduce a su fibrosis.</p></li>
+          <li><span class="ui pasos__n">03</span><p>Y a su posterior reabsorción definitiva por parte del organismo.</p></li>
+          <li><span class="ui pasos__n">04</span><p>La circulación mejora: al ser venas enfermas no son funcionales y el organismo no las necesita.</p></li>
+        </ol>
+        <a class="boton-sec" href="/tratamiento/microespuma/">Ver la técnica en detalle</a>
+      </div>
+      <svg class="tecnica__diagrama" viewBox="0 0 470 470" fill="none" aria-hidden="true">
+        <circle cx="235" cy="235" r="228" stroke="var(--linea-2)" />
+        <circle cx="235" cy="235" r="168" stroke="var(--linea-2)" />
+        <path d="M118 300c46-24 70-62 70-108s26-78 74-92" stroke="var(--azul)" stroke-width="2.2" stroke-linecap="round" />
+        <circle cx="162" cy="268" r="21" fill="#fff" stroke="var(--espuma)" stroke-width="1.8" />
+        <circle cx="193" cy="220" r="14" fill="#fff" stroke="var(--espuma)" stroke-width="1.8" />
+        <circle cx="188" cy="166" r="18" fill="#fff" stroke="var(--espuma)" stroke-width="1.8" />
+        <circle cx="221" cy="126" r="11" fill="#fff" stroke="var(--espuma)" stroke-width="1.8" />
+        <circle cx="252" cy="104" r="16" fill="#fff" stroke="var(--espuma)" stroke-width="1.8" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="seccion envoltorio">
+    <div class="cabecera-seccion">
+      <span class="rotulo">04 — Dónde estamos</span>
+      <h2>Tres clínicas propias</h2>
+    </div>
+    <div class="clinicas">
+      {CLINICAS.map((c) => (
+        <a class="clinica" href={`/clinicas/${c.slug}/`}>
+          <Imagen src={c.foto} alt={`Clínica de ${c.nombre}`} ancho="(max-width: 900px) 100vw, 30vw" clase="clinica__foto" />
+          <h3>{c.nombre}</h3>
+          <p class="clinica__dir">{c.direccion}<br />{c.cp} {c.ciudad}</p>
+          <span class="ui clinica__tel">{c.telefonos[0]}</span>
+          <span class="ui clinica__reg">Registro sanitario {c.registroSanitario}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+
+  <section class="seccion seccion--blanco">
+    <div class="envoltorio">
+      <div class="cabecera-seccion">
+        <span class="rotulo">03 — Tu primera visita</span>
+        <h2>La terapia comienza con un diagnóstico exhaustivo</h2>
+      </div>
+      <div class="visita">
+        <div class="visita__paso">
+          <span class="ui visita__n">01</span>
+          <h3>Historia clínica y examen físico</h3>
+          <p>Una completa historia clínica y un examen físico que incluye maniobras específicas y exploraciones complementarias.</p>
+        </div>
+        <div class="visita__paso">
+          <span class="ui visita__n">02</span>
+          <h3>Eco-doppler color</h3>
+          <p>La exploración que, sin molestias y de forma inocua, más datos proporciona sobre el sistema venoso. Obtenemos en tiempo real información morfológica y funcional de las extremidades.</p>
+        </div>
+        <div class="visita__paso">
+          <span class="ui visita__n">03</span>
+          <h3>Durante el tratamiento</h3>
+          <p>El eco-doppler es herramienta imprescindible para conocer y controlar la dinámica intravenosa de la microespuma y valorar los avances obtenidos.</p>
+        </div>
+        <div class="visita__paso">
+          <span class="ui visita__n">04</span>
+          <h3>Al terminar</h3>
+          <p>Confirmamos por ecografía la total desaparición de las varices tratadas.</p>
+        </div>
+      </div>
+      <p class="ui visita__fuente">Texto de la página «Tratamiento Varices» de la web actual.</p>
+    </div>
+  </section>
+
+  <section class="seccion envoltorio">
+    <div class="dudas">
+      <div class="dudas__intro">
+        <span class="rotulo">05 — Dudas frecuentes</span>
+        <p>Diariamente los angiólogos y cirujanos vasculares aclaramos dudas a nuestros pacientes. Estas son las que más se repiten.</p>
+        <a class="ui dudas__todas" href="/preguntas-frecuentes/">Ver las {preguntasFrecuentes().length} preguntas →</a>
+      </div>
+      <div class="lista-filetes dudas__lista">
+        {preguntas.map((q) => (
+          <details class="duda">
+            <summary>
+              <h3>{q.pregunta}</h3>
+              <span class="duda__signo" aria-hidden="true"></span>
+            </summary>
+            <p>{q.respuesta}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre">
+    <div class="envoltorio cierre__interior">
+      <div>
+        <h2>Cuéntanos tu caso y te decimos si es tratable</h2>
+        <p class="cierre__lead">
+          Déjanos tu teléfono y te llamamos sin coste desde la clínica que elijas. Te atiende personal de la clínica.
+        </p>
+      </div>
+      <a class="boton cierre__boton" href="/contacto/">Contacto</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .portada { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3rem); }
+  .portada__rotulo { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.6rem; }
+  .portada__rotulo span[aria-hidden] { width: 56px; height: 1px; background: var(--tinta); }
+  .portada h1 { font-size: clamp(2.6rem, 6.2vw, 5.5rem); line-height: .98; }
+  .portada h1 em { font-style: italic; font-weight: 400; color: var(--azul); }
+  .portada__texto { max-width: 62rem; }
+  .portada__entradilla { margin: 1.6rem 0 2rem; font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.55; color: var(--tinta-3); max-width: 54ch; }
+  .portada__acciones { display: flex; flex-wrap: wrap; gap: .8rem; }
+
+  .panoramica { margin: 0; }
+  .panoramica__foto { width: 100%; height: clamp(260px, 36vw, 480px); object-fit: cover; object-position: center 42%; }
+
+
+
+  .credenciales { padding-block: 3.5rem; }
+  .credenciales__rejilla { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem; }
+  .credenciales__rejilla > div { display: flex; flex-direction: column; gap: .6rem; }
+  .credenciales__cifra { font-family: var(--serif); font-size: clamp(2.4rem, 4vw, 3.8rem); line-height: 1; letter-spacing: -.04em; color: var(--papel); }
+  .credenciales__pie { font-size: .85rem; line-height: 1.5; color: #93A5B4; }
+
+  .patologia { color: var(--tinta); }
+  .patologia__interior { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 4rem; align-items: center; }
+  .patologia__nombre { font-family: var(--serif); font-size: clamp(1.5rem, 2.4vw, 2.1rem); letter-spacing: -.025em; }
+  .patologia__resumen { font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .patologia:hover .patologia__nombre { color: var(--azul); }
+
+  .tecnica { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 5rem; align-items: center; }
+  .tecnica__titulo { margin: 1.2rem 0; }
+  .tecnica__lead { font-size: 1.15rem; line-height: 1.6; color: var(--tinta-3); max-width: 44ch; }
+  .tecnica__diagrama { width: 100%; height: auto; }
+  .pasos { list-style: none; margin: 1.5rem 0 2rem; padding: 0; }
+  .pasos li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 1.6rem; align-items: baseline; padding: 1.1rem 0; border-top: 1px solid var(--linea-2); }
+  .pasos li:last-child { border-bottom: 1px solid var(--linea-2); }
+  .pasos__n { font-size: .72rem; font-weight: 600; letter-spacing: .16em; color: var(--azul); }
+  .pasos p { margin: 0; font-size: 1.05rem; line-height: 1.6; }
+
+  .clinicas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+  .clinica { display: flex; flex-direction: column; gap: .6rem; color: var(--tinta); }
+  .clinica__foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: .8rem; }
+  .clinica h3 { font-size: clamp(1.7rem, 2.6vw, 2.25rem); }
+  .clinica__dir { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .clinica__tel { font-size: .95rem; font-weight: 600; }
+  .clinica__reg { font-size: .78rem; color: var(--tinta-4); }
+
+  .cierre { padding-block: clamp(3rem, 6vw, 5rem); background: var(--azul); color: #fff; }
+  .cierre__interior { display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
+  .cierre h2 { color: #fff; max-width: 18ch; }
+  .cierre__lead { margin: 1rem 0 0; font-size: 1.1rem; line-height: 1.6; color: #D3E4F5; max-width: 46ch; }
+  .cierre__boton { background: var(--tinta); border-color: var(--tinta); color: #fff; }
+
+
+  .autoridad { padding-block: clamp(3rem, 6vw, 4.5rem); background: var(--blanco); border-top: 1px solid var(--linea); }
+  .autoridad__interior { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+  .autoridad__retrato { width: 100%; aspect-ratio: 250 / 357; object-fit: cover; }
+  .autoridad__texto { display: flex; flex-direction: column; align-items: flex-start; }
+  .autoridad__rotulo { margin-bottom: .9rem; }
+  .autoridad__texto h2 { margin-bottom: 1.1rem; }
+
+
+
+
+  .autoridad__resena { margin: 0 0 1.5rem; font-size: 1.1rem; line-height: 1.7; color: var(--tinta-2); max-width: 68ch; }
+  .autoridad__credenciales { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: .45rem; max-width: 62ch; }
+  .autoridad__credenciales li { position: relative; padding-left: 1.1rem; font-size: .88rem; line-height: 1.5; color: var(--tinta-3); }
+  .autoridad__credenciales li::before { content: ''; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; background: var(--espuma); }
+  .autoridad__credenciales strong { color: var(--tinta); font-weight: 600; }
+  .autoridad__enlaces { display: flex; flex-wrap: wrap; gap: 1.6rem; align-items: center; }
+  .autoridad__wiki { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .9rem; font-weight: 600; color: var(--azul); }
+  .autoridad__equipo { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; font-weight: 600; }
+  @media (max-width: 1080px) {
+    .autoridad__interior { grid-template-columns: 1fr; gap: 1rem; }
+    .autoridad__retrato { max-width: 170px; }
+  }
+
+  .visita { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem; }
+  .visita__paso { padding-top: 1.3rem; border-top: 2px solid var(--tinta); }
+  .visita__n { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .16em; color: var(--azul); margin-bottom: .7rem; }
+  .visita__paso h3 { margin-bottom: .6rem; }
+  .visita__paso p { font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .visita__fuente { margin-top: 1.8rem; font-size: .72rem; color: var(--tinta-4); }
+
+  .dudas { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 4rem; align-items: start; }
+  .dudas__intro p { margin: 1rem 0; font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .dudas__todas { font-size: .85rem; font-weight: 600; }
+  .dudas__lista { border-top: 1px solid var(--linea); }
+  .duda { display: block; padding: 0; border-bottom: 1px solid var(--linea); }
+  .duda summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; padding: 1.5rem 0; cursor: pointer; list-style: none; }
+  .duda summary::-webkit-details-marker { display: none; }
+  .duda h3 { font-size: clamp(1.25rem, 2vw, 1.65rem); line-height: 1.2; max-width: 52ch; }
+  .duda:hover h3 { color: var(--azul); }
+  .duda__signo { position: relative; flex-shrink: 0; width: 20px; height: 20px; margin-top: .5rem; }
+  .duda__signo::before, .duda__signo::after { content: ''; position: absolute; background: var(--azul); }
+  .duda__signo::before { top: 9px; left: 0; width: 20px; height: 1.5px; }
+  .duda__signo::after { top: 0; left: 9px; width: 1.5px; height: 20px; transition: opacity .15s; }
+  .duda[open] .duda__signo::after { opacity: 0; }
+  .duda > p { margin: 0 0 1.6rem; font-size: 1.05rem; line-height: 1.7; color: var(--tinta-2); max-width: 70ch; }
+
+  @media (max-width: 1080px) {
+    .visita { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.8rem; }
+    .dudas { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 640px) { .visita { grid-template-columns: 1fr; } }
+
+  @media (max-width: 1080px) {
+    .tecnica { grid-template-columns: 1fr; gap: 2.5rem; }
+    .credenciales__rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .clinicas { grid-template-columns: 1fr; gap: 2.5rem; }
+    .patologia__interior { grid-template-columns: 1fr; gap: .4rem; }
+    .tecnica__diagrama { max-width: 320px; margin-inline: auto; }
+  }
+</style>

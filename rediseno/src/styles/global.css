@@ -1,0 +1,149 @@
+:root {
+  --tinta: #0C1A29;
+  --tinta-2: #33424F;
+  --tinta-3: #55636F;
+  --tinta-4: #7C8790;
+  --azul: #1F5FB0;
+  --azul-osc: #0E2B4E;
+  --espuma: #8AD8E0;
+  --papel: #F4F2ED;
+  --blanco: #FFFFFF;
+  --linea: #D8D4CA;
+  --linea-2: #E2DED5;
+  --alerta: #A33B2E;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --sans: 'Archivo', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --borde: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.7;
+  color: var(--tinta);
+  background: var(--papel);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+h3 { font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.15; }
+
+p { margin: 0 0 1.1em; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--azul); text-decoration: none; }
+a:hover { color: var(--azul-osc); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
+
+.ui { font-family: var(--sans); letter-spacing: 0; }
+
+.rotulo {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tinta-4);
+}
+
+.envoltorio { padding-inline: var(--borde); }
+
+.boton, .boton-sec {
+  font-family: var(--sans);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  min-height: 58px;
+  padding: 0 1.9rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--tinta);
+  transition: background .15s, color .15s;
+}
+.boton { background: var(--tinta); color: var(--papel); }
+.boton:hover { background: var(--azul-osc); border-color: var(--azul-osc); color: var(--papel); }
+.boton-sec { background: transparent; color: var(--tinta); }
+.boton-sec:hover { background: var(--tinta); color: var(--papel); }
+
+.lista-filetes { border-top: 1px solid var(--linea); }
+.lista-filetes > * {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2rem;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--linea);
+  min-height: 60px;
+}
+
+.seccion { padding-block: clamp(3.5rem, 7vw, 6rem); }
+.seccion--blanco { background: var(--blanco); border-top: 1px solid var(--linea); }
+.seccion--tinta { background: var(--tinta); color: var(--papel); }
+.seccion--tinta h1, .seccion--tinta h2, .seccion--tinta h3 { color: var(--papel); }
+
+.cabecera-seccion {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 2.6rem;
+}
+
+.prosa { font-size: 1.0625rem; }
+.prosa h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin: 2.4em 0 .7em; }
+.prosa h2:first-child { margin-top: 0; }
+.prosa h3 { margin: 2em 0 .6em; }
+.prosa p { line-height: 1.75; color: var(--tinta-2); }
+.prosa strong { font-weight: 600; color: var(--tinta); }
+.prosa ul { padding-left: 1.2em; }
+.prosa li { margin-bottom: .5em; color: var(--tinta-2); }
+.prosa a { text-decoration: underline; text-underline-offset: 3px; }
+
+.aviso-legal-sanitaria {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--tinta-4);
+}
+
+@media (max-width: 900px) {
+  :root { --borde: 18px; }
+  body { font-size: 17px; }
+  .cabecera-seccion { grid-template-columns: 1fr; gap: 1rem; align-items: start; }
+  .lista-filetes > * { grid-template-columns: minmax(0, 1fr) 1.5rem; gap: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+.prosa img {
+  width: 100%;
+  max-width: 720px;
+  margin: 2rem 0;
+  background: var(--blanco);
+}
+.prosa h3 + p img,
+.prosa p > img { margin-top: .8rem; }

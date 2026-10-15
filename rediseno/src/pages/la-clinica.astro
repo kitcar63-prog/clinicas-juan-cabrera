@@ -1,0 +1,10 @@
+---
+import Articulo from '../layouts/Articulo.astro'
+import { PAGINAS } from '../datos/contenido.js'
+const datos = PAGINAS['quienes-somos']
+const relacionadas = [
+  { nombre: 'Equipo', url: '/equipo/' },
+  { nombre: 'Investigación y entidades vinculadas', url: '/investigacion/' },
+]
+---
+<Articulo datos={datos} seccion="La clínica" enlaceSeccion="/la-clinica/" relacionadas={relacionadas} entradilla={datos.frontmatter.descripcion} />

@@ -1,0 +1,20 @@
+---
+import Articulo from '../../layouts/Articulo.astro'
+import { PAGINAS } from '../../datos/contenido.js'
+import { PATOLOGIAS } from '../../datos/sitio.js'
+
+export function getStaticPaths() {
+  return PATOLOGIAS.map((p) => ({ params: { slug: p.slug }, props: { nombre: p.nombre } }))
+}
+
+const { slug } = Astro.params
+const datos = PAGINAS[slug]
+const relacionadas = PATOLOGIAS.filter((p) => p.slug !== slug).slice(0, 4).map((p) => ({ nombre: p.nombre, url: `/patologias/${p.slug}/` }))
+---
+<Articulo
+  datos={datos}
+  seccion="Patologías"
+  enlaceSeccion="/patologias/"
+  relacionadas={relacionadas}
+  entradilla={datos.frontmatter.descripcion}
+/>

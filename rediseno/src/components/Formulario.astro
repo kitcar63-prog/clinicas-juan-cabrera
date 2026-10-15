@@ -1,0 +1,107 @@
+---
+import { CLINICAS, PATOLOGIAS, SITIO } from '../datos/sitio.js'
+const { compacto = false } = Astro.props
+---
+<form class="form ui" method="post" action="/bat/rd-mailformactual.php" novalidate>
+  <div class="form__par">
+    <label class="campo">
+      <span class="campo__et">Nombre *</span>
+      <input name="nombre" type="text" required autocomplete="given-name" placeholder="Tu nombre" />
+    </label>
+    <label class="campo">
+      <span class="campo__et">Apellidos</span>
+      <input name="apellido" type="text" autocomplete="family-name" placeholder="Tus apellidos" />
+    </label>
+  </div>
+
+  <div class="form__par">
+    <label class="campo">
+      <span class="campo__et">Teléfono *</span>
+      <input name="telefono" type="tel" required inputmode="tel" autocomplete="tel" pattern="[0-9 +]{9,15}" placeholder="600 000 000" />
+    </label>
+    <label class="campo">
+      <span class="campo__et">Correo electrónico</span>
+      <input name="email" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" />
+    </label>
+  </div>
+
+  <div class="form__par">
+    <label class="campo">
+      <span class="campo__et">Clínica *</span>
+      <select name="clinica" required>
+        {CLINICAS.map((c) => <option value={c.nombre}>{c.nombre}</option>)}
+      </select>
+    </label>
+    <label class="campo">
+      <span class="campo__et">Franja horaria</span>
+      <select name="franja">
+        <option value="Mañana">Mañana</option>
+        <option value="Tarde">Tarde</option>
+        <option value="Indiferente">Indiferente</option>
+      </select>
+    </label>
+  </div>
+
+  {!compacto && (
+    <label class="campo">
+      <span class="campo__et">Motivo de la consulta</span>
+      <select name="tipotratamiento">
+        {PATOLOGIAS.map((p) => <option value={p.nombre}>{p.nombre}</option>)}
+        <option value="Revisión de un tratamiento previo">Revisión de un tratamiento previo</option>
+        <option value="Otra consulta">Otra consulta</option>
+      </select>
+    </label>
+  )}
+
+  <label class="campo">
+    <span class="campo__et">Cuéntanos tu caso <span class="campo__op">(opcional)</span></span>
+    <textarea name="mensaje" rows="4" placeholder="Desde cuándo, si te han tratado antes, qué te preocupa…"></textarea>
+  </label>
+
+  <input type="hidden" name="contactopor" value="Teléfono" />
+  <p class="trampa" aria-hidden="true">
+    <label>No rellenes este campo<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <label class="check">
+    <input type="checkbox" name="rgpd_basico" required />
+    <span>
+      He leído y acepto la <a href="/politica-privacidad/">política de privacidad</a>. Responsable: {SITIO.razonSocial}.
+      Finalidad: gestionar tu solicitud de cita.
+    </span>
+  </label>
+
+  <label class="check">
+    <input type="checkbox" name="rgpd_salud" required />
+    <span>Consiento expresamente el tratamiento de los datos de salud que facilite en este formulario (art. 9.2.a RGPD).</span>
+  </label>
+
+  <button class="boton form__enviar" type="submit">Solicitar que me llamen</button>
+
+  <p class="form__nota">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>
+    Conexión cifrada. Protegido contra envíos automáticos.
+  </p>
+</form>
+
+<style>
+  .form { display: flex; flex-direction: column; gap: 1.1rem; }
+  .form__par { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .campo { display: flex; flex-direction: column; gap: .45rem; }
+  .campo__et { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta); }
+  .campo__op { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--tinta-4); }
+  .campo input, .campo select, .campo textarea {
+    font-family: var(--sans); font-size: 1rem; color: var(--tinta);
+    min-height: 56px; padding: .9rem 1rem; background: #fff;
+    border: 1px solid #C9C4B8; border-radius: 0; appearance: none;
+  }
+  .campo textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border: 2px solid var(--azul); padding: calc(.9rem - 1px) calc(1rem - 1px); }
+  .campo input:user-invalid { border-color: var(--alerta); }
+  .check { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: .8rem; align-items: start; font-size: .8rem; line-height: 1.55; color: var(--tinta-3); }
+  .check input { width: 20px; height: 20px; margin: .15rem 0 0; accent-color: var(--azul); }
+  .trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form__enviar { width: 100%; margin-top: .4rem; }
+  .form__nota { display: flex; align-items: center; justify-content: center; gap: .5rem; margin: 0; font-size: .72rem; color: var(--tinta-4); }
+  @media (max-width: 700px) { .form__par { grid-template-columns: 1fr; } }
+</style>

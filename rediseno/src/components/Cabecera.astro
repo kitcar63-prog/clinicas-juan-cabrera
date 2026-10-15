@@ -1,0 +1,155 @@
+---
+import { CLINICAS, PATOLOGIAS, REDES, SITIO } from '../datos/sitio.js'
+import { NAV_PRINCIPAL, NAV_SECUNDARIA } from '../datos/navegacion.js'
+const principal = CLINICAS[0]
+const ruta = Astro.url.pathname
+const activo = (url) => (ruta === url || (url !== '/' && ruta.startsWith(url)) ? 'page' : undefined)
+---
+<div class="cintillo ui">
+  <nav class="cintillo__nav" aria-label="Secciones">
+    {NAV_SECUNDARIA.map((e) => <a href={e.url} aria-current={activo(e.url)}>{e.nombre}</a>)}
+  </nav>
+  <div class="cintillo__dcha">
+    <span class="cintillo__sedes">Barcelona · Granada · La Coruña</span>
+    <a class="cintillo__correo" href={`mailto:${SITIO.email}`}>{SITIO.email}</a>
+    <span class="cintillo__redes">
+      <a href={REDES[0].url} rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.27-.12-2.41-.12-2.38 0-4.01 1.45-4.01 4.12v2.3H7.6V13h2.68v8Z"/></svg></a>
+      <a href={REDES[1].url} rel="noopener" aria-label="Twitter"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 3h3.3l-7.2 8.2L22.8 21h-6.6l-5.2-6.7L5.1 21H1.8l7.7-8.8L1.5 3h6.8l4.7 6.2Zm-1.2 16h1.8L7.1 4.9H5.2Z"/></svg></a>
+      <a href={REDES[2].url} rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="16.9" cy="7.1" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+    </span>
+  </div>
+</div>
+
+<header class="cab">
+  <a class="cab__marca" href="/">
+    <span class="cab__nombre">Dr. Juan Cabrera</span>
+    <span class="rotulo cab__sufijo">Clínicas</span>
+  </a>
+
+  <nav class="cab__nav ui" aria-label="Principal">
+    {NAV_PRINCIPAL.map((e) => <a href={e.url} aria-current={activo(e.url)}>{e.nombre}</a>)}
+  </nav>
+
+  <div class="cab__acciones">
+    <a class="boton cab__cta" href="/contacto/">Contacto</a>
+    <button class="cab__menu" type="button" aria-label="Abrir menú" aria-expanded="false" data-menu-abrir>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="panel" hidden data-menu-panel>
+  <div class="panel__cab">
+    <span class="cab__nombre">Dr. Juan Cabrera</span>
+    <button class="cab__menu" type="button" aria-label="Cerrar menú" data-menu-cerrar>
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <nav class="panel__nav" aria-label="Menú">
+    <a class="panel__enlace" href="/patologias/">Tratamientos</a>
+    {PATOLOGIAS.map((p) => <a class="ui panel__sub" href={`/patologias/${p.slug}/`}>{p.nombre}</a>)}
+    <a class="panel__enlace" href="/tratamiento/microespuma/">Escleroterapia con microespuma</a>
+    <a class="panel__enlace" href="/tratamiento/tecnica-aplicacion/">Técnica aplicación</a>
+    <a class="panel__enlace" href="/clinicas/">Clínicas</a>
+    {NAV_SECUNDARIA.map((e) => <a class="panel__enlace" href={e.url}>{e.nombre}</a>)}
+    <span class="rotulo panel__rotulo">Llamar a una clínica</span>
+    {CLINICAS.map((c) => (
+      <a class="ui panel__tel" href={`tel:${c.telefonoE164}`}><span>{c.nombre}</span><span>{c.telefonos[0]}</span></a>
+    ))}
+  </nav>
+  <a class="boton panel__cta" href="/contacto/">Contacto</a>
+</div>
+
+<div class="barra-movil">
+  <a class="boton-sec" href={`tel:${principal.telefonoE164}`}>
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.8l1.6 4-2.2 1.4a11.5 11.5 0 0 0 5.4 5.4l1.4-2.2 4 1.6V18a1.6 1.6 0 0 1-1.8 1.6C10.6 19 5 13.4 4.4 6.8A1.6 1.6 0 0 1 5 4Z"/></svg>
+    Llamar
+  </a>
+  <a class="boton" href="/contacto/">Contacto</a>
+</div>
+
+<style>
+  .cintillo {
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    min-height: 42px; padding-inline: var(--borde);
+    background: var(--tinta); color: #C8D4DF; font-size: .82rem;
+  }
+  .cintillo__nav { display: flex; align-items: center; gap: 1.6rem; }
+  .cintillo a { color: #DCE5EC; }
+  .cintillo a:hover, .cintillo a[aria-current] { color: #fff; }
+  .cintillo__dcha { display: flex; align-items: center; gap: 1.3rem; }
+  .cintillo__sedes { color: #9FB2C2; }
+  .cintillo__correo { color: #DCE5EC; }
+  .cintillo__redes { display: flex; align-items: center; gap: .75rem; }
+  .cintillo__redes a { display: inline-flex; color: #C8D4DF; }
+  .cintillo__redes a:hover { color: #fff; }
+
+  .cab {
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    min-height: 82px; padding-inline: var(--borde);
+    background: var(--papel); border-bottom: 1px solid var(--linea);
+    position: sticky; top: 0; z-index: 40;
+  }
+  .cab__marca { display: flex; align-items: baseline; gap: .6rem; color: var(--tinta); }
+  .cab__nombre { font-family: var(--serif); font-size: 1.55rem; font-weight: 500; letter-spacing: -.025em; white-space: nowrap; }
+  .cab__sufijo { color: var(--tinta-4); }
+  .cab__nav { display: flex; align-items: center; gap: 1.7rem; font-size: .81rem; font-weight: 500; }
+  .cab__nav a { color: var(--tinta); white-space: nowrap; padding-block: .3rem; border-bottom: 2px solid transparent; }
+  .cab__nav a:hover { color: var(--azul); }
+  .cab__nav a[aria-current] { border-bottom-color: var(--azul); }
+  .cab__acciones { display: flex; align-items: center; gap: 1.1rem; }
+  .cab__cta { min-height: 46px; padding-inline: 1.3rem; white-space: nowrap; font-size: .78rem; }
+  .cab__menu { display: none; align-items: center; justify-content: center; width: 46px; height: 46px; padding: 0; background: none; border: 0; color: var(--tinta); cursor: pointer; }
+
+  .panel { position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; background: var(--tinta); color: var(--papel); overflow-y: auto; }
+  .panel[hidden] { display: none; }
+  .panel__cab { display: flex; align-items: center; justify-content: space-between; min-height: 66px; padding-inline: var(--borde); border-bottom: 1px solid #1E3145; color: var(--papel); }
+  .panel__cab .cab__menu { display: inline-flex; color: var(--papel); }
+  .panel__nav { display: flex; flex-direction: column; flex: 1; padding: 1.2rem var(--borde); }
+  .panel__rotulo { color: #6E7B87; margin: 1.6rem 0 .4rem; }
+  .panel__enlace { display: flex; align-items: center; min-height: 58px; font-family: var(--serif); font-size: 1.6rem; letter-spacing: -.03em; color: var(--papel); border-bottom: 1px solid #1E3145; }
+  .panel__sub { display: flex; align-items: center; min-height: 48px; padding-left: 1rem; font-size: .95rem; color: #9AA7B3; border-bottom: 1px solid #16273A; }
+  .panel__tel { display: flex; align-items: center; justify-content: space-between; min-height: 54px; font-size: 1rem; color: var(--papel); border-bottom: 1px solid #1E3145; }
+  .panel__tel span:last-child { color: #9AA7B3; }
+  .panel__cta { margin: 1rem var(--borde) 1.5rem; background: var(--papel); color: var(--tinta); border-color: var(--papel); }
+
+  .barra-movil { display: none; }
+
+  @media (max-width: 1240px) {
+    .cab__nav { gap: 1.1rem; font-size: .76rem; }
+    .cintillo__nav { gap: 1.1rem; }
+  }
+  @media (max-width: 1100px) {
+    .cintillo, .cab__nav { display: none; }
+    .cab__menu { display: inline-flex; }
+  }
+  @media (max-width: 900px) {
+    .cab { min-height: 66px; }
+    .cab__nombre { font-size: 1.25rem; }
+    .cab__sufijo { display: none; }
+    .cab__cta { display: none; }
+    .barra-movil {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: .6rem;
+      padding: .7rem var(--borde) 1rem; background: var(--papel); border-top: 1px solid var(--linea);
+    }
+    .barra-movil .boton, .barra-movil .boton-sec { min-height: 54px; padding-inline: 1rem; }
+  }
+</style>
+
+<script>
+  const abrir = document.querySelector('[data-menu-abrir]')
+  const cerrar = document.querySelector('[data-menu-cerrar]')
+  const panel = document.querySelector('[data-menu-panel]')
+  const alternar = (abierto) => {
+    if (!panel) return
+    panel.hidden = !abierto
+    abrir?.setAttribute('aria-expanded', String(abierto))
+    document.body.style.overflow = abierto ? 'hidden' : ''
+  }
+  abrir?.addEventListener('click', () => alternar(true))
+  cerrar?.addEventListener('click', () => alternar(false))
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel && !panel.hidden) alternar(false)
+  })
+</script>

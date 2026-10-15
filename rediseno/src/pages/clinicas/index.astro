@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro'
+import Imagen from '../../components/Imagen.astro'
+import { CLINICAS, SITIO, migasLd } from '../../datos/sitio.js'
+const migas = migasLd('/clinicas/', 'Clínicas')
+---
+<Base
+  titulo={`Clínicas · ${SITIO.nombre}`}
+  descripcion="Tres clínicas propias con registro sanitario autorizado: Granada, Barcelona y A Coruña."
+  jsonLd={migas}
+>
+  <div class="envoltorio cabezal">
+    <span class="rotulo">Clínicas</span>
+    <h1>Tres clínicas propias</h1>
+  </div>
+  <div class="envoltorio seccion rejilla">
+    {CLINICAS.map((c) => (
+      <a class="tarjeta" href={`/clinicas/${c.slug}/`}>
+        <Imagen src={c.foto} alt={`Clínica de ${c.nombre}`} ancho="(max-width: 900px) 100vw, 30vw" clase="tarjeta__foto" />
+        <h2>{c.nombre}</h2>
+        <p class="tarjeta__dir">{c.direccion}<br />{c.cp} {c.ciudad}</p>
+        <span class="ui tarjeta__tel">{c.telefonos[0]}</span>
+        <span class="ui tarjeta__reg">Registro sanitario {c.registroSanitario}</span>
+      </a>
+    ))}
+  </div>
+</Base>
+<style>
+  .cabezal { padding-block: 3.5rem 0; }
+  .cabezal .rotulo { display: block; margin-bottom: 1.2rem; }
+  .rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+  .tarjeta { display: flex; flex-direction: column; gap: .6rem; color: var(--tinta); }
+  .tarjeta__foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: .8rem; }
+  .tarjeta__dir { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--tinta-3); }
+  .tarjeta__tel { font-size: .95rem; font-weight: 600; }
+  .tarjeta__reg { font-size: .78rem; color: var(--tinta-4); }
+  @media (max-width: 900px) { .rejilla { grid-template-columns: 1fr; gap: 2.5rem; } }
+</style>

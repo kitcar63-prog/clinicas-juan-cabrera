@@ -1,0 +1,6 @@
+---
+import Articulo from '../layouts/Articulo.astro'
+import { PAGINAS } from '../datos/contenido.js'
+const datos = PAGINAS['aviso-legal']
+---
+<Articulo datos={datos} seccion="Legal" enlaceSeccion="/aviso-legal/" />

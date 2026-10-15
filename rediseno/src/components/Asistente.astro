@@ -1,0 +1,309 @@
+---
+---
+<button class="asis-abrir" type="button" aria-expanded="false" aria-controls="asis-panel" data-asis-abrir>
+  <span class="asis-abrir__icono" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.4-4.8A7.5 7.5 0 1 1 20 11.5Z"/><path d="M9 10.5h6M9 13.5h3.5"/></svg>
+  </span>
+  <span class="asis-abrir__texto">Pregúntanos</span>
+</button>
+
+<section class="asis" id="asis-panel" hidden aria-label="Asistente de la clínica" data-asis-panel>
+  <header class="asis__cab">
+    <div class="asis__id">
+      <span class="asis__punto" aria-hidden="true"></span>
+      <div>
+        <p class="asis__titulo">Asistente</p>
+        <p class="asis__sub">Responde con el contenido de nuestros médicos</p>
+      </div>
+    </div>
+    <button class="asis__cerrar" type="button" aria-label="Cerrar asistente" data-asis-cerrar>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </header>
+
+  <div class="asis__hilo" role="log" aria-live="polite" aria-atomic="false" data-asis-hilo>
+    <div class="asis__bienvenida" data-asis-bienvenida>
+      <p>Pregúntame sobre nuestro tratamiento para varices, arañas vasculares, hemorroides o úlceras.</p>
+    </div>
+  </div>
+
+  <form class="asis__form" data-asis-form>
+    <label class="asis__oculto" for="asis-entrada">Tu pregunta</label>
+    <div class="asis__fila">
+      <input id="asis-entrada" type="text" name="pregunta" maxlength="800" autocomplete="off" enterkeyhint="send" placeholder="Escribe tu pregunta…" data-asis-entrada />
+      <button class="asis__micro" type="button" aria-label="Dictar la pregunta" hidden data-asis-micro>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg>
+      </button>
+      <button class="asis__enviar" type="submit" aria-label="Enviar pregunta" data-asis-enviar>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <p class="asis__estado" aria-live="polite" data-asis-estado></p>
+    <p class="asis__aviso">
+      No sustituye a una consulta médica. Para valorar tu caso, <a href="/contacto/">contacta con la clínica</a>.
+    </p>
+  </form>
+</section>
+
+<style>
+  .asis-abrir {
+    position: fixed; right: 22px; bottom: 22px; z-index: 45;
+    display: inline-flex; align-items: center; gap: .65rem;
+    height: 56px; padding: 0 1.4rem 0 .9rem;
+    background: var(--azul); color: #fff;
+    border: 0; border-radius: 999px; cursor: pointer;
+    font-family: var(--sans); font-size: .95rem; font-weight: 600;
+    box-shadow: 0 10px 28px rgba(31, 95, 176, .38);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .asis-abrir:hover { background: var(--azul-osc); transform: translateY(-2px); box-shadow: 0 14px 34px rgba(14, 43, 78, .4); }
+  .asis-abrir__icono { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: rgba(255, 255, 255, .16); }
+
+  .asis {
+    position: fixed; right: 22px; bottom: 22px; z-index: 55;
+    display: flex; flex-direction: column;
+    width: min(440px, calc(100vw - 28px)); max-height: min(660px, calc(100vh - 44px));
+    background: var(--papel);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 28px 70px rgba(12, 26, 41, .3);
+  }
+  .asis[hidden] { display: none; }
+
+  .asis__cab { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; background: var(--azul); color: #fff; }
+  .asis__id { display: flex; align-items: center; gap: .7rem; }
+  .asis__punto { width: 9px; height: 9px; border-radius: 999px; background: var(--espuma); box-shadow: 0 0 0 4px rgba(138, 216, 224, .22); }
+  .asis__titulo { margin: 0; font-family: var(--sans); font-size: .95rem; font-weight: 600; }
+  .asis__sub { margin: .1rem 0 0; font-family: var(--sans); font-size: .72rem; line-height: 1.4; color: rgba(255, 255, 255, .78); }
+  .asis__cerrar { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, .14); border: 0; border-radius: 999px; color: #fff; cursor: pointer; }
+  .asis__cerrar:hover { background: rgba(255, 255, 255, .26); }
+
+  .asis__hilo { flex: 1; overflow-y: auto; padding: 1.1rem; display: flex; flex-direction: column; gap: 1rem; }
+  .asis__bienvenida p { font-size: .97rem; line-height: 1.6; color: var(--tinta-2); }
+
+  .asis__form { padding: .95rem 1.1rem 1.05rem; background: #fff; border-top: 1px solid var(--linea); }
+  .asis__oculto { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .asis__fila { display: flex; align-items: center; gap: .4rem; }
+  .asis__fila input {
+    flex: 1; min-width: 0; min-height: 52px; padding: 0 1rem;
+    background: var(--papel); border: 1px solid var(--linea); border-radius: 999px;
+    font-family: var(--sans); font-size: 1rem; color: var(--tinta);
+  }
+  .asis__fila input::placeholder { color: var(--tinta-4); }
+  .asis__fila input:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(31, 95, 176, .16); }
+  .asis__micro, .asis__enviar {
+    flex-shrink: 0; width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 999px; cursor: pointer; border: 0;
+  }
+  .asis__micro { background: var(--papel); border: 1px solid var(--linea); color: var(--tinta-3); }
+  .asis__micro:hover { color: var(--azul); border-color: var(--azul); }
+  .asis__micro[data-grabando] { background: #A33B2E; border-color: #A33B2E; color: #fff; }
+  .asis__enviar { background: var(--azul); color: #fff; }
+  .asis__enviar:hover { background: var(--azul-osc); }
+  .asis__enviar:disabled { opacity: .4; cursor: default; }
+  .asis__estado { margin: .5rem 0 0; min-height: 1em; font-family: var(--sans); font-size: .74rem; color: var(--azul); }
+  .asis__estado:empty { display: none; }
+  .asis__aviso { margin: .5rem 0 0; font-family: var(--sans); font-size: .69rem; line-height: 1.5; color: var(--tinta-4); }
+
+  @media (max-width: 900px) {
+    .asis-abrir { right: 14px; bottom: 90px; height: 52px; padding: 0 1rem 0 .7rem; font-size: .88rem; }
+    .asis { right: 0; left: 0; bottom: 0; width: 100%; max-height: 88vh; border-radius: 18px 18px 0 0; }
+    .asis__form { padding-bottom: 1.3rem; }
+  }
+  @media (max-width: 380px) { .asis-abrir__texto { display: none; } .asis-abrir { padding: 0 .7rem; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .asis-abrir { transition: none; }
+  }
+</style>
+
+
+<style is:global>
+  /* Estos elementos los crea el JavaScript, así que no llevan el atributo de
+     ámbito de Astro y su CSS tiene que ser global. Va todo colgado de .asis. */
+  .asis .asis__turno { display: flex; flex-direction: column; gap: .3rem; }
+  .asis .asis__quien { font-family: var(--sans); font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-4); }
+  .asis .asis__texto { font-size: .97rem; line-height: 1.65; color: var(--tinta-2); }
+  .asis .asis__texto p { margin: 0 0 .7em; }
+  .asis .asis__texto p:last-child { margin-bottom: 0; }
+  .asis .asis__texto a { color: var(--azul); text-decoration: underline; text-underline-offset: 3px; }
+
+  .asis .asis__turno--yo { align-items: flex-end; }
+  .asis .asis__turno--yo .asis__quien { color: var(--azul); }
+  .asis .asis__turno--yo .asis__texto {
+    max-width: 85%; padding: .6rem .9rem;
+    background: var(--azul); color: #fff;
+    border-radius: 14px 14px 4px 14px;
+  }
+
+  .asis .asis__turno--ia .asis__texto {
+    padding: .75rem .95rem;
+    background: #fff; border: 1px solid var(--linea);
+    border-radius: 4px 14px 14px 14px;
+  }
+
+  .asis .asis__pensando { display: inline-flex; align-items: center; gap: .32rem; padding: .3rem .2rem; }
+  .asis .asis__pensando i { width: 7px; height: 7px; border-radius: 999px; background: var(--azul); opacity: .35; animation: asisLatido 1.1s infinite ease-in-out; }
+  .asis .asis__pensando i:nth-child(2) { animation-delay: .17s; }
+  .asis .asis__pensando i:nth-child(3) { animation-delay: .34s; }
+
+  @keyframes asisLatido {
+    0%, 70%, 100% { opacity: .3; transform: translateY(0); }
+    35% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .asis .asis__pensando i { animation: none; opacity: .6; }
+  }
+</style>
+
+<script>
+  const abrir = document.querySelector('[data-asis-abrir]')
+  const panel = document.querySelector('[data-asis-panel]')
+  const cerrar = document.querySelector('[data-asis-cerrar]')
+  const hilo = document.querySelector('[data-asis-hilo]')
+  const form = document.querySelector('[data-asis-form]')
+  const entrada = document.querySelector('[data-asis-entrada]')
+  const enviar = document.querySelector('[data-asis-enviar]')
+  const micro = document.querySelector('[data-asis-micro]')
+  const estado = document.querySelector('[data-asis-estado]')
+
+  if (abrir && panel && hilo && form && entrada) {
+    const historial = []
+    let ocupado = false
+
+    const mostrar = (v) => {
+      panel.hidden = !v
+      abrir.hidden = v
+      abrir.setAttribute('aria-expanded', String(v))
+      if (v) entrada.focus()
+    }
+    abrir.addEventListener('click', () => mostrar(true))
+    cerrar?.addEventListener('click', () => mostrar(false))
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) mostrar(false)
+    })
+
+    const escapar = (s) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+    const aHtml = (texto) =>
+      escapar(texto)
+        .replace(/\[([^\]]{1,120})\]\((\/[a-z0-9\-/]*)\)/gi, '<a href="$2">$1</a>')
+        .replace(/\*\*([^*\n]{1,120})\*\*/g, '<strong>$1</strong>')
+        .split(/\n{2,}/)
+        .map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+        .join('')
+
+    const turno = (quien, etiqueta) => {
+      const el = document.createElement('div')
+      el.className = `asis__turno asis__turno--${quien}`
+      el.innerHTML = `<span class="asis__quien">${etiqueta}</span><div class="asis__texto"></div>`
+      hilo.appendChild(el)
+      hilo.scrollTop = hilo.scrollHeight
+      return el.querySelector('.asis__texto')
+    }
+
+    const preguntar = async (pregunta) => {
+      if (ocupado || !pregunta.trim()) return
+      ocupado = true
+      enviar.disabled = true
+      document.querySelector('[data-asis-bienvenida]')?.remove()
+
+      turno('yo', 'Tú').textContent = pregunta
+      historial.push({ rol: 'user', texto: pregunta })
+
+      const destino = turno('ia', 'Asistente')
+      destino.innerHTML = '<span class="asis__pensando" role="status" aria-label="Pensando"><i></i><i></i><i></i></span>'
+      estado.textContent = 'Buscando en el contenido de la clínica…'
+
+      let acumulado = ''
+      try {
+        const r = await fetch('/api/preguntar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mensajes: historial }),
+        })
+        if (!r.ok || !r.body) {
+          const { error } = await r.json().catch(() => ({}))
+          throw new Error(error || 'No he podido responder.')
+        }
+
+        const lector = r.body.getReader()
+        const dec = new TextDecoder()
+        while (true) {
+          const { done, value } = await lector.read()
+          if (done) break
+          acumulado += dec.decode(value, { stream: true })
+          if (acumulado.trim()) {
+            estado.textContent = ''
+            destino.innerHTML = aHtml(acumulado)
+            hilo.scrollTop = hilo.scrollHeight
+          }
+        }
+        historial.push({ rol: 'assistant', texto: acumulado })
+      } catch (err) {
+        destino.innerHTML = aHtml(
+          (err && err.message ? err.message : 'No he podido responder.') +
+            '\n\nPuedes [contactar con la clínica](/contacto/).'
+        )
+      } finally {
+        estado.textContent = ''
+        ocupado = false
+        enviar.disabled = false
+        entrada.focus()
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const p = entrada.value
+      entrada.value = ''
+      preguntar(p)
+    })
+
+
+    // Dictado por voz, solo si el navegador lo soporta
+    const Reconocimiento = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (Reconocimiento && micro) {
+      micro.hidden = false
+      const rec = new Reconocimiento()
+      rec.lang = 'es-ES'
+      rec.interimResults = true
+      rec.continuous = false
+      let grabando = false
+
+      rec.onresult = (ev) => {
+        let texto = ''
+        for (let i = 0; i < ev.results.length; i++) texto += ev.results[i][0].transcript
+        entrada.value = texto.slice(0, 800)
+      }
+      rec.onerror = (ev) => {
+        estado.textContent =
+          ev.error === 'not-allowed'
+            ? 'No has dado permiso para usar el micrófono.'
+            : 'No he podido escucharte. Escríbelo si prefieres.'
+        setTimeout(() => { estado.textContent = '' }, 4000)
+      }
+      rec.onend = () => {
+        grabando = false
+        micro.removeAttribute('data-grabando')
+        micro.setAttribute('aria-label', 'Dictar la pregunta')
+        if (estado.textContent === 'Te escucho…') estado.textContent = ''
+        if (entrada.value.trim()) preguntar(entrada.value), (entrada.value = '')
+      }
+
+      micro.addEventListener('click', () => {
+        if (ocupado) return
+        if (grabando) { rec.stop(); return }
+        try {
+          rec.start()
+          grabando = true
+          micro.setAttribute('data-grabando', '')
+          micro.setAttribute('aria-label', 'Dejar de dictar')
+          estado.textContent = 'Te escucho…'
+        } catch { /* ya estaba en marcha */ }
+      })
+    }
+  }
+</script>

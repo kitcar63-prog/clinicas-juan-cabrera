@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro'
+import { PAGINAS } from '../../datos/contenido.js'
+import { SITIO, migasLd } from '../../datos/sitio.js'
+
+const indice = PAGINAS['divulgacion']
+
+// Artículos con página propia. El resto vive todavía dentro de divulgacion.html.
+const ARTICULOS = [
+  {
+    url: '/divulgacion/historia-escleroterapia/',
+    titulo: 'Del antiguo Egipto a Granada: breve historia de la escleroterapia',
+    entradilla:
+      'Los intentos del ser humano por eliminar las varices son tan antiguos como las primeras alusiones a éstas. En el papiro Ebers (antiguo Egipto, 1550 a. C.) ya se las menciona.',
+    categoria: 'Historia de la técnica',
+  },
+  {
+    url: '/divulgacion/que-es-una-variz/',
+    titulo: 'Qué es una variz y otras dudas razonables',
+    entradilla:
+      'Artículo firmado por el Dr. Gonzalo López, con conclusiones y bibliografía. Treinta y dos referencias externas, entre ellas dos DOI.',
+    categoria: 'Diagnóstico',
+  },
+  {
+    url: '/patologias/eliminar-grandes-varices/',
+    titulo: '¿Puede la escleroterapia con microespuma eliminar las grandes varices?',
+    entradilla:
+      'Sí, sin duda. Y disculpen si la rotundidad de la respuesta parece inmodestia, pero se trata de un hecho, como en el presente artículo pretendemos demostrar.',
+    categoria: 'Escleroterapia',
+  },
+  {
+    url: '/patologias/aranas-vasculares/',
+    titulo: 'Importancia del diagnóstico en el correcto tratamiento de las arañas vasculares',
+    entradilla: 'Diagnosticarlas correctamente y diferenciar su origen es fundamental antes de tratarlas.',
+    categoria: 'Diagnóstico',
+  },
+  {
+    url: '/patologias/hemorroides/',
+    titulo: 'Tratamiento de hemorroides con microespuma',
+    entradilla:
+      'Las molestias ocasionadas por las hemorroides, sin ser una patología grave, marcan la vida de un gran número de personas.',
+    categoria: 'Hemorroides',
+  },
+]
+const migas = migasLd('/divulgacion/', 'Divulgación')
+---
+<Base
+  titulo={`Divulgación · ${SITIO.nombre}`}
+  descripcion="Artículos sobre patología venosa y escleroterapia con microespuma escritos por los médicos de la clínica."
+  jsonLd={migas}
+>
+  <div class="envoltorio cabezal">
+    <span class="rotulo">Divulgación</span>
+    <h1>Artículos escritos por los médicos de la clínica</h1>
+  </div>
+
+  <section class="envoltorio seccion">
+    <div class="lista-filetes">
+      {ARTICULOS.map((a) => (
+        <a class="art" href={a.url}>
+          <span class="art__interior">
+            <span class="rotulo art__cat">{a.categoria}</span>
+            <span class="art__titulo">{a.titulo}</span>
+            <span class="art__entradilla">{a.entradilla}</span>
+          </span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="envoltorio seccion">
+    <div class="cabecera-seccion">
+      <span class="rotulo">Índice original</span>
+      <h2>Contenido migrado de divulgacion.html</h2>
+    </div>
+    <div class="prosa"><indice.Content /></div>
+  </section>
+</Base>
+<style>
+  .cabezal { padding-block: 3.5rem 1rem; }
+  .cabezal .rotulo { display: block; margin-bottom: 1.2rem; }
+  .art { color: var(--tinta); }
+  .art__interior { display: flex; flex-direction: column; gap: .5rem; }
+  .art__titulo { font-family: var(--serif); font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.12; letter-spacing: -.025em; }
+  .art__entradilla { font-size: 1rem; line-height: 1.6; color: var(--tinta-3); max-width: 70ch; }
+  .art:hover .art__titulo { color: var(--azul); }
+</style>
